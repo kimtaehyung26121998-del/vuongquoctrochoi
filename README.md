@@ -51,4 +51,3 @@ Triển khai trên Vercel bằng preset Vite: Build Command `npm run build`, Out
 **Chưa kiểm chứng:** chạy thực tế trên webcam Windows, độ chính xác ở trẻ em, tính tương thích các phiên bản package tải từ npm (môi trường tạo gói bị hạn chế kết nối npm). Không quảng cáo đây là sản phẩm đã sẵn sàng sử dụng toàn lớp.
 
 **Phát triển tiếp:** chỉnh các ngưỡng theo thử nghiệm, tách 4 ảnh nền thành bản full HD, tạo chế độ giáo viên, báo cáo kết quả, lưu bộ câu hỏi, tối ưu hiệu suất bằng Worker nếu cần.
-

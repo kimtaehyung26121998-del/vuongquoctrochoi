@@ -1,0 +1,11 @@
+{
+  "background": "/assets/backgrounds/04_castle.png",
+  "boss": "/assets/items/boss.png",
+  "owl": "/assets/mascot/owl_cheer.png",
+  "trophy": "/assets/items/trophy.png",
+  "music": "/audio/music/04_lau_dai_boss.ogg",
+  "hit": "/audio/sfx/adventure/boss_hit.wav",
+  "defeat": "/audio/sfx/adventure/boss_defeated.wav",
+  "wrong": "/audio/sfx/quiz/answer_wrong_gentle.wav",
+  "timeout": "/audio/sfx/quiz/time_up.wav"
+}

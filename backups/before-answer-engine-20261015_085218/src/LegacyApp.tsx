@@ -1,0 +1,166 @@
+import {useCallback,useEffect,useRef,useState,type CSSProperties} from 'react'
+import {usePoseCamera} from './ai/usePoseCamera'
+import {POSE_NAMES,type Pose} from './ai/poseClassifier'
+import {QUESTIONS,STAGES,type Choice} from './data/questions'
+
+type Screen='home'|'training'|'game'|'finish'
+type Phase='thinking'|'answering'|'feedback'
+const POSE_IMAGES:{pose:Pose;label:string;asset:string}[]=[
+  {pose:'A',label:'A',asset:'/assets/characters/pose_a.png'},
+  {pose:'B',label:'B',asset:'/assets/characters/pose_b.png'},
+  {pose:'C',label:'C',asset:'/assets/characters/pose_c.png'},
+  {pose:'D',label:'D',asset:'/assets/characters/pose_d.png'},
+  {pose:'NEUTRAL',label:'NGHỈ',asset:'/assets/characters/pose_neutral.png'},
+]
+function playSfx(path:string,muted:boolean){if(muted)return;try{const a=new Audio('/audio/sfx/'+path);a.volume=.55;void a.play().catch(()=>{})}catch{/* Tắt tiếng / trình duyệt khóa autoplay */}}
+export default function App(){
+  const [screen,setScreen]=useState<Screen>('home')
+  const [phase,setPhase]=useState<Phase>('thinking')
+  const [index,setIndex]=useState(0)
+  const [seconds,setSeconds]=useState(3)
+  const [score,setScore]=useState(0)
+  const [streak,setStreak]=useState(0)
+  const [correctCount,setCorrectCount]=useState(0)
+  const [selected,setSelected]=useState<Choice|null>(null)
+  const [paused,setPaused]=useState(false)
+  const [muted,setMuted]=useState(false)
+  const [trainingPose,setTrainingPose]=useState<Pose>('UNKNOWN')
+  const lastHandled=useRef(0)
+  const submittedRef=useRef(false)
+  const answerWindowOpen=screen==='game' && phase==='answering' && !paused
+  const camera=usePoseCamera(screen==='training'||answerWindowOpen,answerWindowOpen)
+  const question=QUESTIONS[Math.min(index,QUESTIONS.length-1)]!
+  const stage=STAGES[question.stage]
+
+  const submitAnswer=useCallback((answer:Choice|null)=>{
+    if(phase!=='answering'||screen!=='game'||paused||submittedRef.current)return
+    submittedRef.current=true // khóa đồng bộ: webcam và hết giờ không thể cùng chấm một câu
+    const q=QUESTIONS[index]!
+    const good=answer===q.answer
+    setSelected(answer)
+    if(good){setCorrectCount(v=>v+1);setScore(v=>v+10);setStreak(v=>v+1)}else setStreak(0)
+    setPhase('feedback')
+    playSfx(good?'quiz/answer_correct.wav':'quiz/answer_wrong_gentle.wav',muted)
+  },[index,muted,paused,phase,screen])
+
+  useEffect(()=>{
+    const evt=camera.confirmed
+    if(!evt ||evt.id===lastHandled.current)return
+    lastHandled.current=evt.id
+    if(screen==='training'){
+      setTrainingPose(evt.pose)
+      playSfx('pose/pose_confirmed.wav',muted)
+    }else if(screen==='game'&&phase==='answering'&&!paused)submitAnswer(evt.pose)
+  },[camera.confirmed,screen,phase,paused,submitAnswer,muted])
+
+  useEffect(()=>{
+    if(screen!=='game'||paused||camera.status==='loading'||(phase!=='thinking'&&phase!=='answering'))return
+    const id=window.setInterval(()=>setSeconds(s=>Math.max(0,s-1)),1000)
+    return()=>window.clearInterval(id)
+  },[screen,phase,paused,camera.status])
+  useEffect(()=>{
+    if(screen!=='game'||paused||camera.status==='loading'||seconds>0)return
+    if(phase==='thinking'){
+      submittedRef.current=false
+      setPhase('answering');setSeconds(15)
+      playSfx('quiz/question_appear.wav',muted)
+    }else if(phase==='answering')submitAnswer(null)
+  },[screen,phase,seconds,paused,submitAnswer,muted,camera.status])
+  useEffect(()=>{
+    if(screen!=='game'||phase!=='feedback'||paused)return
+    const timer=window.setTimeout(()=>{
+      if(index===QUESTIONS.length-1){setScreen('finish');playSfx('rewards/game_victory.wav',muted)}
+      else{setIndex(v=>v+1);setPhase('thinking');setSelected(null);setSeconds(3)}
+    },3300)
+    return()=>window.clearTimeout(timer)
+  },[screen,phase,paused,index,muted])
+
+  const begin=()=>{
+    submittedRef.current=false
+    setScreen('game');setIndex(0);setSeconds(3);setPhase('thinking');setScore(0);setStreak(0)
+    setCorrectCount(0);setSelected(null);setPaused(false)
+    playSfx('ui/ui_start.wav',muted)
+    // Bật webcam từ cú nhấp 'Chơi' nếu chưa chạy; trình duyệt có thể xin quyền.
+    if(camera.status!=='running'&&camera.status!=='loading')void camera.start()
+  }
+  const visitTraining=()=>{
+    setTrainingPose('UNKNOWN');setScreen('training');playSfx('ui/ui_click.wav',muted)
+  }
+  // Đóng camera khi rời chế độ luyện tập/chơi để không giữ luồng webcam âm thầm.
+  useEffect(()=>{if(screen==='home'||screen==='finish')camera.stop()},[screen,camera.stop])
+  const stageColor=['#287e52','#ab56c7','#218ec5','#925cc4'][question.stage]
+  const answerCorrect=selected===question.answer
+
+  return <div className="site">
+    <header className="topbar">
+      <button className="brand" type="button" onClick={()=>setScreen('home')}>
+        <img src="/assets/mascot/owl_happy.png" alt="Cú mèo giáo sư" />
+        <span>VƯƠNG QUỐC <strong>TOÁN HỌC</strong><small>Webcam Adventure · Lớp 2</small></span>
+      </button>
+      <div className="header-right">
+        <span className="pill">Bản thử nghiệm 0.1</span>
+        <button className="control" type="button" onClick={()=>setMuted(v=>!v)} aria-label={muted?'Bật âm thanh':'Tắt âm thanh'}>{muted?'🔇':'🔊'}</button>
+      </div>
+    </header>
+
+    {screen==='home'&&<main className="landing">
+      <section className="hero glass">
+        <div className="hero-copy"><span className="overline">KHÁM PHÁ • TƯ DUY • VẬN ĐỘNG</span>
+          <h1>Hô biến bài Toán thành <em>chuyến phiêu lưu!</em></h1>
+          <p>Trả lời trắc nghiệm A, B, C, D bằng chính tư thế cơ thể. Một học sinh mỗi lượt, chỉ cần webcam của laptop.</p>
+          <div className="hero-actions">
+            <button className="btn primary" type="button" onClick={visitTraining}>Luyện tập webcam <span>→</span></button>
+            <button className="btn secondary" type="button" onClick={begin}>Chơi 12 câu toán</button>
+          </div><p className="footnote">Camera xử lý tại máy. Không gửi hoặc lưu video học sinh.</p>
+        </div>
+        <img className="hero-owl" src="/assets/mascot/owl_cheer.png" alt="Cú mèo cổ vũ" />
+      </section>
+      <h2>5 tư thế điều khiển trò chơi</h2>
+      <div className="poses-gallery">{POSE_IMAGES.map(item=><div key={item.pose} className="pose-tile"><img src={item.asset} alt={POSE_NAMES[item.pose]}/><p>{POSE_NAMES[item.pose]}</p></div>)}</div>
+      <div className="stage-grid">{STAGES.map((s,i)=><div className="stage-tile" key={s.name}><img src={s.asset} alt={s.name}/><p><b>Chặng {i+1}:</b> {s.name}</p></div>)}</div>
+    </main>}
+
+    <main className={'play-shell '+(screen==='home'?'hidden':'')}>
+      <div className="play-left">
+        {screen==='training'&&<section className="glass panel">
+          <div className="section-heading"><span className="overline">PHÒNG THÍ NGHIỆM AI</span><h2>Thử 4 tư thế trước khi chơi</h2></div>
+          <p>Đứng thẳng trong khung hình. Bắt đầu bằng tư thế nghỉ (hai tay buông xuống), rồi tạo dáng A/B/C/D và giữ 1 giây.</p>
+          <div className="training-poses">{POSE_IMAGES.map(p=><div className={'training-item '+(camera.pose===p.pose?'active':'')} key={p.pose}><img src={p.asset} alt={POSE_NAMES[p.pose]}/><b>{p.label}</b></div>)}</div>
+          <div className="feedback info">{trainingPose==='UNKNOWN'?'Chưa có tư thế được xác nhận.':`Đã ghi nhận tư thế ${trainingPose}. Hạ tay về dáng nghỉ để thực hiện lần tiếp theo.`}</div>
+          <button className="btn primary" type="button" onClick={begin}>Vào chơi toán <span>→</span></button>
+        </section>}
+        {screen==='game'&&<section className="glass panel quiz-panel" style={{'--stageColor':stageColor} as CSSProperties}>
+          <div className="quiz-meta"><span>CHẶNG {question.stage+1} · {stage.name}</span><strong>Câu {index+1} / {QUESTIONS.length}</strong></div>
+          <div className="question-banner"><img src={stage.asset} alt=""/><h2>{question.prompt}</h2></div>
+          <div className="clock-row"><span>{phase==='thinking'?'Đang suy nghĩ…':phase==='answering'?'Tạo dáng A/B/C/D, giữ 1 giây để tự động chọn!':selected===null?'Đã hết giờ':'Đã chốt đáp án!'}</span><b>{phase==='feedback'?'✓':`${seconds}s`}</b></div>
+          <div className="answer-grid">{(['A','B','C','D'] as const).map(key=><button key={key} disabled={phase!=='answering'||paused} className={'answer '+(camera.pose===key&&phase==='answering'?'detected ':'')+(phase==='feedback'&&key===question.answer?'right ':'')+(phase==='feedback'&&selected===key&&!answerCorrect?'wrong ':'')} type="button" onClick={()=>submitAnswer(key)}><span className="answer-letter">{key}</span><span>{question.choices[key]}</span></button>)}</div>
+          {phase==='feedback'&&<div className={'feedback '+(answerCorrect?'success':'warning')}><b>{answerCorrect?'Chính xác! +10 điểm':selected===null?'Hết giờ!':`Chưa đúng. Đáp án là ${question.answer}.`}</b><p>{question.explanation}</p></div>}
+          <div className="score-row"><span>⭐ {score} điểm</span><span>✓ {correctCount} câu đúng</span><span>🔥 Liên tiếp: {streak}</span></div>
+          <div className="game-controls"><button className="btn secondary" type="button" onClick={()=>setPaused(v=>!v)}>{paused?'▶ Tiếp tục':'⏸ Tạm dừng'}</button><button className="btn ghost" type="button" onClick={()=>setScreen('home')}>↩ Thoát</button></div>
+          {paused&&<div className="feedback info">Trò chơi đang tạm dừng. Camera không chốt đáp án.</div>}
+        </section>}
+        {screen==='finish'&&<section className="glass panel finish-panel">
+          <img className="trophy" src="/assets/items/trophy.png" alt="Cúp chiến thắng"/>
+          <h2>Chúc mừng nhà thám hiểm toán học!</h2>
+          <p>Em đã hoàn thành đủ {QUESTIONS.length} câu hỏi và khám phá 4 vùng đất.</p>
+          <div className="final-score">{score} <small>điểm</small></div><p>Trả lời đúng {correctCount}/{QUESTIONS.length} câu.</p>
+          <div className="hero-actions"><button className="btn primary" type="button" onClick={begin}>Chơi lại</button><button className="btn secondary" type="button" onClick={()=>setScreen('home')}>Về trang chủ</button></div>
+        </section>}
+      </div>
+
+      <aside className="camera-column"><section className="camera-panel glass">
+        <div className="camera-heading"><h3>WEBCAM NHẬN DIỆN</h3><span className={'status '+camera.status}>{camera.status==='running'?'● Đang hoạt động':camera.status==='loading'?'◌ Đang tải':camera.status==='error'?'● Lỗi':'○ Chưa bật'}</span></div>
+        <div className="video-wrap"><video ref={camera.videoRef} autoPlay muted playsInline/><canvas ref={camera.canvasRef}/>{camera.status!=='running'&&<div className="video-placeholder"><img src="/assets/ui/webcam.png" alt=""/><p>{camera.status==='loading'?'Đang tải AI…':'Chưa có hình camera'}</p></div>}</div>
+        <div className="pose-detected"><span>TƯ THẾ ĐANG THẤY</span><strong>{camera.pose==='UNKNOWN'?'—':camera.pose==='NEUTRAL'?'NGHỈ':camera.pose}</strong></div>
+        <div className="hold-head"><span>Thời gian giữ dáng</span><b>{Math.round(camera.progress*100)}%</b></div>
+        <div className="progress-track"><div style={{width:`${Math.round(camera.progress*100)}%`}}/></div>
+        <p className="camera-message" role="status">{camera.message}</p>
+        <p className="hint">{answerWindowOpen ? (camera.armed?'Đã mở khóa: giữ tư thế 1 giây để chốt đáp án tự động.':'Đang xác nhận tư thế…') : screen==='training' ? (camera.armed?'Đã sẵn sàng nhận tư thế.':'Hạ hai tay xuống 0,5 giây để luyện tập.') : 'Khi thời gian trả lời bắt đầu, camera sẽ tự mở khóa mỗi câu.'}</p>
+        <div className="camera-actions">{camera.status==='running'?<button className="btn danger" type="button" onClick={camera.stop}>Tắt webcam</button>:<button className="btn primary" type="button" disabled={camera.status==='loading'} onClick={()=>void camera.start()}>Bật webcam</button>}
+          {screen==='game'&&<button className="btn secondary" type="button" onClick={visitTraining}>Luyện dáng</button>}
+        </div>
+      </section><div className="privacy-note">🔒 Dữ liệu khung hình chỉ xử lý trong trình duyệt. Lần đầu cần Internet để tải mô hình AI.</div></aside>
+    </main>
+    <footer>Prototype thử nghiệm · Nhận diện A/B/C/D cần được kiểm tra trên học sinh thật, đặc biệt là dáng C.</footer>
+  </div>
+}

@@ -1,0 +1,38 @@
+VUONG QUOC TOAN HOC - FIX CHOT DAP AN TU WEBCAM v0.1.2
+
+NGUYEN NHAN:
+- Camera hien tu the A/B/C/D, nhung bo chot dang cho hoc sinh ha tay ve NGHI de arm.
+- Neu hoc sinh tao dang ngay sau khi cau hoi bat dau, camera van nhin thay dang nhung bo chot khong nhan -> het gio.
+
+THAY DOI:
+1) Tu dong mo khoa nhan dap an moi khi vao pha tra loi (khong doi ve NGHI).
+2) Giu dang lien tuc 1 giay se tu dong chot va dung dem nguoc.
+3) Khoa dong bo tranh webcam va su kien het gio cham trung.
+4) Neu camera dang tai mo hinh, dong ho tam dung den khi camera tai xong.
+5) Khi bam 'Choi 12 cau toan', webcam se tu dong khoi dong (trinh duyet xin quyen neu can).
+6) Ma xac nhan (id) tang dan, khong duoc tao tu Date.now() de tranh trung.
+7) Khi hoc sinh giu nguyen mot dang qua hai cau, game khong chon lai neu chua nghi 0,5 giay.
+7) Neu hoc sinh giu nguyen cung mot dang qua hai cau lien tiep, game doi tha tay ve NGHI truoc khi chon lai cung chu. Dang KHAC duoc chap nhan binh thuong.
+
+CAI DAT:
+1) Sao luu thu muc du an neu can.
+2) Giai nen TOAN BO ZIP vao thu muc goc du an (noi co package.json).
+3) O terminal PowerShell cua VS Code, chay:
+   powershell -ExecutionPolicy Bypass -File .\APPLY_FIX.ps1
+4) Chay:
+   npm.cmd run build
+   npm.cmd run dev
+5) Refresh trinh duyet (Ctrl+Shift+R).
+
+THU NGHIEM:
+- Chon 'Choi 12 cau toan'; cho webcam tai xong.
+- Khi man hinh bao tra loi, GIU DANG A/B/C/D it nhat 1 giay.
+- Thanh tien do phai tang den 100%; dap an duoc chot NGAY ma khong can doi het gio.
+- Cac cau tiep theo thu cac dang khac nhau.
+- Neu giu nguyen mot dang suot nhieu cau, game KHONG tu chon lai. Can ha tay 0,5 giay truoc khi chon lai dung chu do.
+
+LUU Y:
+- Ban va duoc viet dua tren code starter 0.1.1 da gui truoc do.
+- Neu Codex da sua 3 file tren, khong chen de ngay. Yeu cau Codex so sanh de giu cac sua doi moi.
+- Ban va khong thay doi anh, nhac, cau hoi, package.json.
+- Chua xac minh build/browser end-to-end tren laptop cua ban.

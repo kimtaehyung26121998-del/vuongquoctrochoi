@@ -1,0 +1,213 @@
+{
+  "pack": "Vương quốc Toán học - Audio v1.0",
+  "created": "2026-10-14",
+  "source": "Original procedural audio composed and synthesized for this project; no third-party sound recordings included.",
+  "sample_rate": 24000,
+  "music": {
+    "00_menu": {
+      "file": "/audio/music/00_menu.ogg",
+      "duration_seconds": 17.14,
+      "loop": true,
+      "bpm": 112
+    },
+    "01_rung_phep_tinh": {
+      "file": "/audio/music/01_rung_phep_tinh.ogg",
+      "duration_seconds": 16.27,
+      "loop": true,
+      "bpm": 118
+    },
+    "02_cau_vong_thu_thach": {
+      "file": "/audio/music/02_cau_vong_thu_thach.ogg",
+      "duration_seconds": 15.48,
+      "loop": true,
+      "bpm": 124
+    },
+    "03_dao_kho_bau": {
+      "file": "/audio/music/03_dao_kho_bau.ogg",
+      "duration_seconds": 18.11,
+      "loop": true,
+      "bpm": 106
+    },
+    "04_lau_dai_boss": {
+      "file": "/audio/music/04_lau_dai_boss.ogg",
+      "duration_seconds": 15.0,
+      "loop": true,
+      "bpm": 128
+    }
+  },
+  "sfx": {
+    "ui_hover": {
+      "file": "/audio/sfx/ui/ui_hover.wav",
+      "description": "Di chuột/chuyển focus qua nút",
+      "game_event": "ui.hover",
+      "seconds": 0.37
+    },
+    "ui_click": {
+      "file": "/audio/sfx/ui/ui_click.wav",
+      "description": "Bấm nút",
+      "game_event": "ui.click",
+      "seconds": 0.42
+    },
+    "ui_start": {
+      "file": "/audio/sfx/ui/ui_start.wav",
+      "description": "Bắt đầu chơi",
+      "game_event": "game.start",
+      "seconds": 0.89
+    },
+    "ui_back": {
+      "file": "/audio/sfx/ui/ui_back.wav",
+      "description": "Quay lại",
+      "game_event": "ui.back",
+      "seconds": 0.63
+    },
+    "ui_pause": {
+      "file": "/audio/sfx/ui/ui_pause.wav",
+      "description": "Tạm dừng trò chơi",
+      "game_event": "game.pause",
+      "seconds": 0.67
+    },
+    "ui_resume": {
+      "file": "/audio/sfx/ui/ui_resume.wav",
+      "description": "Tiếp tục trò chơi",
+      "game_event": "game.resume",
+      "seconds": 0.59
+    },
+    "pose_detected": {
+      "file": "/audio/sfx/pose/pose_detected.wav",
+      "description": "Phát hiện tư thế hợp lệ, bắt đầu giữ",
+      "game_event": "pose.detected",
+      "seconds": 0.4
+    },
+    "pose_holding": {
+      "file": "/audio/sfx/pose/pose_holding.wav",
+      "description": "Đang giữ dáng/tiến độ tăng",
+      "game_event": "pose.holdingStart",
+      "seconds": 0.62
+    },
+    "pose_confirmed": {
+      "file": "/audio/sfx/pose/pose_confirmed.wav",
+      "description": "Giữ đúng tư thế đủ 1 giây; chốt đáp án",
+      "game_event": "pose.confirmed",
+      "seconds": 0.8
+    },
+    "pose_lost": {
+      "file": "/audio/sfx/pose/pose_lost.wav",
+      "description": "Mất dấu/đổi dáng giữa chừng",
+      "game_event": "pose.lost",
+      "seconds": 0.6
+    },
+    "pose_neutral": {
+      "file": "/audio/sfx/pose/pose_neutral.wav",
+      "description": "Đã quay về tư thế nghỉ",
+      "game_event": "pose.neutral",
+      "seconds": 0.59
+    },
+    "question_appear": {
+      "file": "/audio/sfx/quiz/question_appear.wav",
+      "description": "Câu hỏi xuất hiện",
+      "game_event": "question.show",
+      "seconds": 0.7
+    },
+    "countdown_tick": {
+      "file": "/audio/sfx/quiz/countdown_tick.wav",
+      "description": "Mỗi giây đếm ngược cuối",
+      "game_event": "timer.tick",
+      "seconds": 0.37
+    },
+    "countdown_last": {
+      "file": "/audio/sfx/quiz/countdown_last.wav",
+      "description": "Giây đếm ngược cuối cùng",
+      "game_event": "timer.last",
+      "seconds": 0.55
+    },
+    "time_up": {
+      "file": "/audio/sfx/quiz/time_up.wav",
+      "description": "Hết thời gian trả lời",
+      "game_event": "timer.expired",
+      "seconds": 0.92
+    },
+    "answer_correct": {
+      "file": "/audio/sfx/quiz/answer_correct.wav",
+      "description": "Trả lời đúng",
+      "game_event": "answer.correct",
+      "seconds": 1.08
+    },
+    "answer_wrong_gentle": {
+      "file": "/audio/sfx/quiz/answer_wrong_gentle.wav",
+      "description": "Trả lời sai, nhẹ nhàng không gây áp lực",
+      "game_event": "answer.incorrect",
+      "seconds": 0.94
+    },
+    "collect_star": {
+      "file": "/audio/sfx/rewards/collect_star.wav",
+      "description": "Thu thập ngôi sao",
+      "game_event": "reward.star",
+      "seconds": 0.82
+    },
+    "collect_crystal": {
+      "file": "/audio/sfx/rewards/collect_crystal.wav",
+      "description": "Nhận pha lê",
+      "game_event": "reward.crystal",
+      "seconds": 1.01
+    },
+    "collect_coin": {
+      "file": "/audio/sfx/rewards/collect_coin.wav",
+      "description": "Nhận xu",
+      "game_event": "reward.coin",
+      "seconds": 0.66
+    },
+    "streak_3": {
+      "file": "/audio/sfx/rewards/streak_3.wav",
+      "description": "Ba câu đúng liên tiếp",
+      "game_event": "reward.streak3",
+      "seconds": 1.05
+    },
+    "level_complete": {
+      "file": "/audio/sfx/rewards/level_complete.wav",
+      "description": "Hoàn thành màn",
+      "game_event": "stage.complete",
+      "seconds": 1.63
+    },
+    "game_victory": {
+      "file": "/audio/sfx/rewards/game_victory.wav",
+      "description": "Chiến thắng toàn bộ game",
+      "game_event": "game.victory",
+      "seconds": 2.59
+    },
+    "bridge_build": {
+      "file": "/audio/sfx/adventure/bridge_build.wav",
+      "description": "Xây cầu phép tính",
+      "game_event": "adventure.bridge",
+      "seconds": 0.85
+    },
+    "chest_open": {
+      "file": "/audio/sfx/adventure/chest_open.wav",
+      "description": "Mở rương kho báu",
+      "game_event": "adventure.chestOpen",
+      "seconds": 0.92
+    },
+    "portal_open": {
+      "file": "/audio/sfx/adventure/portal_open.wav",
+      "description": "Mở cánh cổng",
+      "game_event": "adventure.portal",
+      "seconds": 1.19
+    },
+    "boss_hit": {
+      "file": "/audio/sfx/adventure/boss_hit.wav",
+      "description": "Phép thuật đánh Boss",
+      "game_event": "boss.hit",
+      "seconds": 0.72
+    },
+    "boss_defeated": {
+      "file": "/audio/sfx/adventure/boss_defeated.wav",
+      "description": "Boss bị đánh bại",
+      "game_event": "boss.defeated",
+      "seconds": 1.84
+    }
+  },
+  "recommended_volume": {
+    "music": 0.2,
+    "effects": 0.65
+  },
+  "notes": "All files work locally, no network required. Music designed as loop."
+}

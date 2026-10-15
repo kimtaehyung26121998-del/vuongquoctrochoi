@@ -1,0 +1,14 @@
+VUONG QUOC TRO CHOI - BAT DAU TAI DAY
+
+1) Giai nen toan bo NOI DUNG trong ZIP vao thu muc "vuong quoc tro choi" ma ban da tao.
+2) Mo folder do trong VS Code. Mo terminal tai thu muc chua package.json.
+3) PowerShell: npm.cmd install
+4) PowerShell: npm.cmd run dev
+5) Mo http://127.0.0.1:5173 trong Chrome/Edge.
+6) Chon "Luyen tap webcam" -> "Bat webcam" -> cho phep su dung camera.
+7) Neu ban dang dung Codex CLI, hay dan noi dung trong docs/CODEX_PROMPT.txt
+   (hoac yeu cau Codex doc AGENTS.md va docs/CHAT_HANDOFF.md).
+
+DOC HUONG DAN CHI TIET: README.md
+
+Luu y: Ban thu nghiem chua duoc test webcam truc tiep tren may Windows.

@@ -1,0 +1,159 @@
+.treasure-island {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 420px;
+  border: 1px solid #ffffffd9;
+  border-radius: 24px;
+  color: #174c50;
+  background: linear-gradient(180deg, #e0f5ef 0%, #c0e9df 45%, #5bc1bd 46%, #238e9e 100%);
+  box-shadow: 0 8px 28px #144a4a15, inset 0 0 0 5px #ffffff30;
+}
+.treasure-island *, .treasure-island *::before, .treasure-island *::after {box-sizing: border-box;}
+.treasure-island__sky {position: absolute; inset: 0; z-index: -2; background: radial-gradient(circle at 76% 20%, #fff4c6 0 23px, transparent 24px), radial-gradient(ellipse at 14% 28%, #ffffff70, transparent 30%);}
+.treasure-island__sky::after {content: ''; position: absolute; right: 10%; top: 24%; width: 78px; height: 17px; background: #ffffff6b; border-radius: 50%; box-shadow: -180px -22px 0 4px #ffffff4d;}
+.treasure-island__sea {position: absolute; inset: 50% 0 0; z-index: -2; background: repeating-linear-gradient(175deg, transparent 0 35px, #dcffed30 36px 38px, transparent 39px 58px);}
+.treasure-island__island, .treasure-island__trail {display: none;}
+.treasure-island__header {display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 26px 0; z-index: 1;}
+.treasure-island__eyebrow {font-size: 10px; font-weight: 850; letter-spacing: .15em; color: #447f77;}
+.treasure-island__header h2 {margin: 7px 0; font-size: clamp(22px, 2.3vw, 34px); line-height: 1.15; letter-spacing: -.035em; color: #154f50;}
+.treasure-island__header p {margin: 0; max-width: 48ch; color: #44766e; font-size: 12px; line-height: 1.5;}
+.treasure-island__counter {flex: none; padding: 10px 16px; text-align: center; background: #fffdf0e6; border: 1px solid #ffffff; border-radius: 16px; box-shadow: 0 4px 12px #22737012;}
+.treasure-island__counter strong {display: block; font-size: 27px; line-height: 1.15; color: #185c56;}
+.treasure-island__counter strong small {font-size: 16px; color: #7f9b87; font-weight: 600;}
+.treasure-island__counter span {display: block; margin-top: 3px; font-size: 10px; font-weight: 750; color: #527a69;}
+.treasure-island__playfield {
+  --treasure-owl-width: clamp(68px, 7vw, 115px);
+  --treasure-chest-width: clamp(82px, 9vw, 140px);
+  --treasure-chest-center: 78%;
+  --treasure-route-start: 12%;
+  /* Cạnh phải của Cú chạm vào rương; cùng mốc dùng cho cả đường đi và rương. */
+  --treasure-route-end: calc(var(--treasure-chest-center) - var(--treasure-chest-width) / 2 - var(--treasure-owl-width) + 12px);
+  position: relative; flex: 1; min-height: 170px; margin: 0 14px;
+}
+.treasure-island__landscape {position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;}
+.treasure-island__owl {position: absolute; width: var(--treasure-owl-width); left: calc(var(--treasure-route-start) + (var(--treasure-route-end) - var(--treasure-route-start)) * var(--treasure-route-to, 0)); bottom: 18%; z-index: 2;}
+.treasure-island__owl--moving {animation: treasure-step .8s ease-in-out both;}
+.treasure-island__owl img {display: block; width: 100%; height: auto; filter: drop-shadow(0 7px 5px #305d4933);}
+.treasure-island__owl span {position: absolute; top: -5px; left: 50%; transform: translateX(-50%); white-space: nowrap; border: 1px solid #fff; border-radius: 20px 20px 20px 3px; background: #fffdf2; padding: 5px 10px; color: #4d7056; font-size: 10px; font-weight: 800; box-shadow: 0 3px 8px #2a5f4520;}
+.treasure-island__loot {position: absolute; left: var(--treasure-chest-center); transform: translateX(-50%); bottom: 18%; width: var(--treasure-chest-width); height: 125px;}
+.treasure-island__chest {position: absolute; bottom: 0; width: 100%; height: auto; filter: drop-shadow(0 7px 4px #66572c33);}
+.treasure-island__chest--open {animation: treasure-pop .7s ease both;}
+.treasure-island__crystal {position: absolute; left: 35%; top: 0; width: 36%; height: 62px; object-fit: contain; filter: drop-shadow(0 0 15px #fff3a5); animation: treasure-reveal 1s ease both, treasure-hover 3s 1s ease-in-out infinite;}
+.treasure-island__sparkles {position: absolute; right: 15%; top: 14%; font-size: 24px; color: #fff8c1; text-shadow: 0 0 16px #ffed8e; animation: treasure-pop .7s ease both; pointer-events: none;}
+.treasure-island__inventory {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 0 18px; z-index: 2;}
+.treasure-island__objective {position: relative; display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border: 1px solid #ffffffc9; border-radius: 15px; background: #f6fff3e8; box-shadow: 0 5px 12px #0c555f10; transition: border-color .2s, background .2s;}
+.treasure-island__objective--current {border-color: #e2b658; background: #fff8e6; box-shadow: inset 0 0 0 1px #ebc878;}
+.treasure-island__objective--done {border-color: #a3d9ac; background: #ecf8df;}
+.treasure-island__objective--assisted {border-color: #b3d0d5; background: #edf4f2;}
+.treasure-island__objective-art {flex: 0 0 34px; height: 42px; display: grid; place-items: center;}
+.treasure-island__objective-art img {max-width: 100%; max-height: 42px; object-fit: contain; filter: drop-shadow(0 2px 2px #394b301a);}
+.treasure-island__objective:not(.treasure-island__objective--done):not(.treasure-island__objective--current) .treasure-island__objective-art {opacity: .6; filter: saturate(.35);}
+.treasure-island__objective-copy {min-width: 0; display: flex; flex-direction: column; gap: 4px;}
+.treasure-island__objective-copy small {font-size: 8px; letter-spacing: .11em; color: #729080; font-weight: 800;}
+.treasure-island__objective-copy b {font-size: clamp(10px, 1.1vw, 15px); line-height: 1.25; color: #285d50;}
+.treasure-island__objective-copy span {font-size: 10px; line-height: 1.3; color: #617d70;}
+.treasure-island__objective--done .treasure-island__objective-copy span {color: #337744;}
+.treasure-island__objective--assisted .treasure-island__objective-copy span {color: #667984;}
+.treasure-island__objective-symbol {align-self: flex-start; margin-left: auto; color: #9bad9a; font-size: 11px; font-weight: 850;}
+.treasure-island__objective--done .treasure-island__objective-symbol {color: #3e8850; font-size: 17px;}
+.treasure-island__objective--assisted .treasure-island__objective-symbol {color: #6a9198; font-size: 17px;}
+.treasure-island__journey-note {display: flex; justify-content: space-between; gap: 8px; padding: 10px 22px 14px; font-size: 9px; font-weight: 650; color: #e0f7ee;}
+.treasure-island__feedback {margin: 0 18px 14px; padding: 10px 14px; background: #f2f9f6; border: 1px solid #c3dfd9; border-radius: 12px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; font-size: 12px;}
+.treasure-island__feedback--success {background: #eff9e3; border-color: #bedba3;}
+.treasure-island__feedback button {background: #276d66; color: white; padding: 6px 10px; border: 0; border-radius: 8px; cursor: pointer; font-weight: 700;}
+.treasure-island__victory {margin: 0 18px 16px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; background: #fff8dd; border: 1px solid #e9ca79; border-radius: 15px;}
+.treasure-island__victory img {width: 48px; height: 62px; object-fit: contain;}
+.treasure-island__victory small {font-size: 9px; font-weight: 800; color: #9c782e; letter-spacing: .08em;}
+.treasure-island__victory h3 {margin: 4px 0; font-size: 18px; color: #725723;}
+.treasure-island__victory p {margin: 0; font-size: 12px;}
+.treasure-island__pause-mask {position: absolute; inset: 0; z-index: 5; background: #103b4ab3; backdrop-filter: blur(3px); display: grid; place-items: center; font-size: 30px; font-weight: 850; color: #fff8de;}
+.treasure-island--paused *, .treasure-island--paused *::before, .treasure-island--paused *::after {animation-play-state: paused !important; transition: none !important;}
+.treasure-island--compact {min-height: 300px;}
+
+/* Chỉ áp dụng giao diện này cho màn Kho Báu, giữ CSS Rừng/Cầu Vồng. */
+.treasure-app {background: #edf2e9; color: #264f48;}
+.treasure-app.rainbow-app .forest-main {grid-template-rows: minmax(300px, 1fr) auto;}
+.treasure-app.rainbow-app .forest-header h1, .treasure-app.rainbow-app .forest-question h2 {color: #25584d;}
+.treasure-app.rainbow-app .forest-header .forest-eyebrow {color: #758b6f;}
+.treasure-app.rainbow-app .forest-back {color: #466d5a; border-color: #cfdbc9; background: #fffdf5;}
+.treasure-app.rainbow-app .forest-question {border-color: #fff; background: #fffcf1; box-shadow: 0 5px 18px #4c654010;}
+.treasure-app.rainbow-app .forest-question-meta {color: #7b8b6e;}
+.treasure-app.rainbow-app .forest-answer {border-color: #e2e3cc; color: #315e4d; background: #fffefa;}
+.treasure-app.rainbow-app .forest-answer b {color: #4a6e50; background: #edf0dc;}
+.treasure-app.rainbow-app .forest-answer.answer-correct {background: #e6f5db; border-color: #75ad69;}
+.treasure-app.rainbow-app .forest-answer.answer-retry {background: #fff0e2; border-color: #d39b6d;}
+.treasure-app.rainbow-app .forest-feedback {color: #7d836b;}
+.treasure-app.rainbow-app .forest-feedback strong {color: #4d7056;}
+.treasure-app.rainbow-app .forest-camera {border-color: #dce5d4;}
+.treasure-app.rainbow-app .forest-pose-guide {background: #e1e9d8;}
+.treasure-app.rainbow-app .rainbow-instructions {color: #768670;}
+.treasure-app.rainbow-app .forest-finish .forest-eyebrow {color: #a18845;}
+
+/* Component câu hỏi độc lập của module; bản tích hợp dùng khung engine. */
+.treasure-stage {display: grid; gap: 14px; width: 100%;}
+.treasure-stage__quiz {background: #fffcf1; border: 1px solid #e7dcc0; border-radius: 20px; padding: 18px; color: #315a4e;}
+.treasure-stage__topline {display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 12px; color: #718268;}
+.treasure-stage__quiz h3 {font-size: clamp(19px, 2.4vw, 27px); margin: 16px 0;}
+.treasure-stage__answers {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;}
+.treasure-stage__answer {display: flex; gap: 12px; align-items: center; border: 2px solid #e0e5d1; border-radius: 13px; background: #fff; color: #315a4e; padding: 11px 13px; font-size: clamp(15px, 2vw, 20px); font-weight: 800; text-align: left; cursor: pointer;}
+.treasure-stage__answer span {display: grid; place-items: center; flex: 0 0 40px; height: 40px; border-radius: 11px; background: #e7eddb;}
+.treasure-stage__answer:disabled {cursor: default; opacity: .8;}
+.treasure-stage__answer--correct {border-color: #75ad69; background: #e6f5db;}
+.treasure-stage__answer--wrong {border-color: #d39b6d; background: #fff0e2;}
+.treasure-stage__explanation {background: #edf4e6; padding: 12px; border-radius: 9px; font-size: 14px;}
+.treasure-stage__hint {font-size: 12px; color: #7d836b;}
+
+@keyframes treasure-hover {0%, 100% {translate: 0 0;} 50% {translate: 0 -5px;}}
+@keyframes treasure-step {
+  from {left: calc(var(--treasure-route-start) + (var(--treasure-route-end) - var(--treasure-route-start)) * var(--treasure-route-from)); transform: translateY(0);}
+  50% {transform: translateY(-12px);}
+  to {left: calc(var(--treasure-route-start) + (var(--treasure-route-end) - var(--treasure-route-start)) * var(--treasure-route-to)); transform: translateY(0);}
+}
+@keyframes treasure-pop {from {opacity: 0; scale: .7;} to {opacity: 1; scale: 1;}}
+@keyframes treasure-reveal {from {opacity: 0; transform: translateY(30px) scale(.5);} to {opacity: 1; transform: translateY(0) scale(1);}}
+@media (max-height: 800px) and (min-width: 1000px) {
+  .treasure-app.rainbow-app .forest-main {grid-template-rows: minmax(265px, 1fr) auto;}
+  .treasure-island--compact {min-height: 265px;}
+  .treasure-island--compact .treasure-island__header {padding: 15px 20px 0;}
+  .treasure-island--compact .treasure-island__header h2 {font-size: 23px; margin: 4px 0;}
+  .treasure-island--compact .treasure-island__header p {font-size: 11px;}
+  .treasure-island--compact .treasure-island__playfield {min-height: 112px;}
+  .treasure-island--compact .treasure-island__playfield {--treasure-owl-width: clamp(62px, 6.5vw, 90px); --treasure-chest-width: clamp(76px, 8vw, 112px);}
+  .treasure-island--compact .treasure-island__loot {height: 95px;}
+  .treasure-island--compact .treasure-island__crystal {height: 45px;}
+  .treasure-island--compact .treasure-island__objective {padding: 8px 10px;}
+  .treasure-island--compact .treasure-island__objective-art {height: 32px; flex-basis: 28px;}
+  .treasure-island--compact .treasure-island__objective-art img {max-height: 32px;}
+  .treasure-island--compact .treasure-island__counter {padding: 7px 12px;}
+  .treasure-island--compact .treasure-island__counter strong {font-size: 23px;}
+}
+@media (max-width: 999px) {
+  .treasure-app.rainbow-app .forest-main {grid-template-rows: auto auto;}
+  .treasure-island__header {padding: 18px 16px 0; gap: 10px;}
+  .treasure-island__header h2 {font-size: 23px;}
+  .treasure-island__header p {font-size: 11px;}
+  .treasure-island__counter {padding: 8px 10px;}
+  .treasure-island__inventory {padding: 0 10px; gap: 6px;}
+  .treasure-island__objective {gap: 5px; padding: 8px; flex-wrap: wrap;}
+  .treasure-island__objective-art {flex-basis: 28px; height: 30px;}
+  .treasure-island__objective-art img {max-height: 30px;}
+  .treasure-island__objective-copy {order: 1; flex-basis: 100%;}
+  .treasure-island__objective-copy b {font-size: 11px;}
+  .treasure-island__objective-copy span {font-size: 9px;}
+  .treasure-island__journey-note {padding: 10px 14px 12px; flex-wrap: wrap; font-size: 9px;}
+  .treasure-island__playfield {min-height: 150px; margin: 0;}
+}
+@media (max-width: 420px) {
+  .treasure-island__header h2 {font-size: 20px;}
+  .treasure-island__header p {max-width: 27ch;}
+  .treasure-island__counter span {max-width: 65px; line-height: 1.4;}
+  .treasure-stage__answers {grid-template-columns: 1fr;}
+}
+.treasure-app.rainbow-skip .treasure-island *,
+.treasure-app.rainbow-skip .treasure-island *::before,
+.treasure-app.rainbow-skip .treasure-island *::after {animation: none !important; transition: none !important;}
+@media (prefers-reduced-motion: reduce) {.treasure-island * {animation: none !important; transition: none !important;}}

@@ -1,0 +1,27 @@
+import type {Pose} from './poseClassifier'
+export const HOLD_MS=1000
+export const NEUTRAL_MS=500
+/** Chốt tối đa một lựa chọn mỗi lần tạo dáng; muốn chốt tiếp phải về tư thế nghỉ. */
+export class PoseStabilizer {
+  private candidate: Pose='UNKNOWN'
+  private since=0
+  private neutralSince=0
+  private armed=false
+  private locked=false
+  reset(){this.candidate='UNKNOWN';this.since=0;this.neutralSince=0;this.armed=false;this.locked=false}
+  update(pose:Pose, now:number, canConfirm:boolean):{progress:number;confirmed:Pose|null;armed:boolean}{
+    if(pose==='NEUTRAL'){
+      if(this.neutralSince===0)this.neutralSince=now
+      if(now-this.neutralSince>=NEUTRAL_MS){this.armed=true;this.locked=false}
+    }else this.neutralSince=0
+    if(pose!==this.candidate){this.candidate=pose;this.since=now}
+    const isAnswer=pose==='A'||pose==='B'||pose==='C'||pose==='D'
+    const elapsed=isAnswer?now-this.since:0
+    const progress=canConfirm&&this.armed&&!this.locked?Math.min(1,elapsed/HOLD_MS):0
+    if(canConfirm&&isAnswer&&this.armed&&!this.locked&&elapsed>=HOLD_MS){
+      this.locked=true;this.armed=false
+      return {progress:1,confirmed:pose,armed:false}
+    }
+    return {progress,confirmed:null,armed:this.armed}
+  }
+}

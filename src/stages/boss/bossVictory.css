@@ -1,0 +1,25 @@
+.boss-app[hidden]{display:none}
+.boss-victory{position:relative;isolation:isolate;display:grid;place-items:center;min-height:100vh;min-height:100svh;overflow:hidden;padding:38px 24px 28px;color:#fff6df;text-align:center;background:radial-gradient(ellipse at 50% 36%,#574b8f70,transparent 48%),radial-gradient(ellipse at 12% 90%,#393b7b80,transparent 45%),linear-gradient(160deg,#111a37,#251b46 60%,#101a32)}
+.boss-victory:before{content:'';position:absolute;inset:18px;border:1px solid #f5d68730;border-radius:28px;pointer-events:none}
+.victory-content{position:relative;z-index:1;width:min(100%,720px);animation:victory-enter .8s ease-out both}
+.victory-eyebrow{display:block;color:#e4c78b;font-size:11px;font-weight:900;letter-spacing:.23em}
+.victory-trophy-scene{position:relative;display:grid;place-items:center;height:240px;width:280px;margin:12px auto 0}
+.victory-halo{position:absolute;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#ffdf8438,#f6ce6812 55%,transparent 72%);box-shadow:0 0 75px #eac27618;animation:victory-glow 3s ease-in-out infinite alternate}
+.victory-halo:after{content:'';position:absolute;inset:12px;border:1px solid #f7d78a40;border-radius:50%;outline:1px solid #f7d78a15;outline-offset:12px}
+.victory-trophy{position:relative;width:210px;height:210px;object-fit:contain;z-index:1;filter:drop-shadow(0 10px 22px #ffc45455);animation:victory-float 3s ease-in-out infinite}
+.victory-podium{position:absolute;bottom:4px;width:156px;height:15px;border-radius:50%;background:#070d25a0;filter:blur(5px)}
+.victory-spark{position:absolute;color:#ffe6a2;font-size:26px;animation:victory-twinkle 2s ease-in-out infinite alternate}.spark-one{top:36px;left:22px}.spark-two{top:90px;right:18px;animation-delay:.6s}.spark-three{bottom:35px;left:35px;animation-delay:1.2s}
+.victory-stars{color:#ffcf62;font-size:25px;letter-spacing:9px;text-shadow:0 0 20px #ffc65d66;margin:9px 0 16px}
+.boss-victory h1{font-size:clamp(28px,4vw,48px);line-height:1.2;font-weight:900;letter-spacing:-.03em;margin:0}.boss-victory h1 span{color:#ffdc86}
+.victory-message{color:#d5d1e5;font-size:16px;line-height:1.7;margin:17px 0 22px}
+.victory-medal{display:inline-flex;flex-direction:column;gap:7px;padding:14px 28px;border:1px solid #e6c67b4d;border-radius:17px;background:linear-gradient(120deg,#ffe8a40c,#fff2cf04)}.victory-medal>span{font-size:10px;letter-spacing:.16em;color:#d3b87f;font-weight:900}.victory-medal strong{font-size:17px;color:#fff0c5}.victory-medal i{font-style:normal;color:#c2a36a;margin:0 10px}
+.victory-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:26px 0 0}.victory-actions button,.victory-sound{font:inherit;cursor:pointer;border-radius:14px;font-weight:900}.victory-actions button{padding:14px 25px;min-width:172px;transition:transform .15s}.victory-actions button:hover{transform:translateY(-2px)}.victory-primary{border:1px solid #ffe3a0;background:linear-gradient(135deg,#ffe9a6,#edbb5c);color:#3a2a25;box-shadow:0 5px 22px #e7b84d20}.victory-secondary{border:1px solid #e0d9f04d;color:#eee8ff;background:#ffffff08}.victory-sound{position:absolute;right:34px;top:30px;z-index:2;border:1px solid #ffffff30;background:#ffffff0d;color:#e5dff5;font-size:12px;padding:8px 12px}.victory-actions button:focus-visible,.victory-sound:focus-visible{outline:3px solid #a1eaff;outline-offset:5px}
+.victory-signoff{font-size:12px;color:#a9a2bf;margin:24px 0 0}
+.victory-fireworks{position:absolute;inset:0;z-index:0;pointer-events:none}.victory-burst{position:absolute;width:1px;height:1px}.victory-burst i{position:absolute;display:block;width:5px;height:15px;border-radius:50%;background:var(--burst-color);box-shadow:0 0 9px var(--burst-color);opacity:0;animation:victory-firework 4.8s ease-out infinite;animation-delay:var(--burst-delay)}
+@keyframes victory-firework{0%,5%{opacity:0;transform:rotate(var(--ray-angle)) translateY(0) scale(.2)}9%{opacity:1}26%{opacity:.85}42%,100%{opacity:0;transform:rotate(var(--ray-angle)) translateY(-135px) scale(.25)}}
+@keyframes victory-float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes victory-glow{to{transform:scale(1.15);opacity:.65}}
+@keyframes victory-twinkle{from{opacity:.35;transform:scale(.75)}to{opacity:1;transform:scale(1.15)}}
+@keyframes victory-enter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.boss-victory{padding:76px 22px 30px}.victory-eyebrow{font-size:9px;letter-spacing:.12em}.victory-trophy-scene{height:200px;width:240px}.victory-trophy{width:175px;height:175px}.victory-halo{width:180px;height:180px}.victory-message{font-size:14px}.victory-medal{padding:12px 18px}.victory-medal strong{font-size:15px}.victory-sound{right:29px;top:28px}.victory-signoff{line-height:1.6}}
+@media(prefers-reduced-motion:reduce){.victory-content,.victory-trophy,.victory-halo,.victory-spark{animation:none}.victory-burst i{animation:none;opacity:.4;transform:rotate(var(--ray-angle)) translateY(-85px) scale(.45)}.victory-actions button{transition:none}}

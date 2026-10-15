@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="210" viewBox="0 0 240 210">
+ <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaac"/><stop offset=".4" stop-color="#ffd044"/><stop offset="1" stop-color="#d58412"/></linearGradient><filter id="glow"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#8f5a07" flood-opacity=".4"/></filter></defs>
+ <g transform="rotate(-35 120 105)" filter="url(#glow)">
+  <circle cx="120" cy="55" r="32" fill="none" stroke="#ba771a" stroke-width="20"/>
+  <circle cx="120" cy="55" r="32" fill="none" stroke="url(#gold)" stroke-width="15"/>
+  <rect x="108" y="84" width="24" height="91" rx="7" fill="url(#gold)" stroke="#b67b16" stroke-width="4"/>
+  <path d="M123 134h38v17h-28v20h-10z" fill="url(#gold)" stroke="#b67b16" stroke-width="4" stroke-linejoin="round"/>
+ </g>
+</svg>

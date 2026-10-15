@@ -1,0 +1,398 @@
+{
+  "characters/pose_a.png": {
+    "path": "/assets/characters/pose_a.png",
+    "width": 205,
+    "height": 474,
+    "sourceBox": [
+      0,
+      0,
+      213,
+      490
+    ]
+  },
+  "characters/pose_b.png": {
+    "path": "/assets/characters/pose_b.png",
+    "width": 210,
+    "height": 454,
+    "sourceBox": [
+      213,
+      0,
+      423,
+      490
+    ]
+  },
+  "characters/pose_c.png": {
+    "path": "/assets/characters/pose_c.png",
+    "width": 206,
+    "height": 445,
+    "sourceBox": [
+      423,
+      0,
+      629,
+      490
+    ]
+  },
+  "characters/pose_d.png": {
+    "path": "/assets/characters/pose_d.png",
+    "width": 202,
+    "height": 426,
+    "sourceBox": [
+      629,
+      0,
+      831,
+      490
+    ]
+  },
+  "characters/pose_neutral.png": {
+    "path": "/assets/characters/pose_neutral.png",
+    "width": 196,
+    "height": 442,
+    "sourceBox": [
+      831,
+      0,
+      1055,
+      490
+    ]
+  },
+  "mascot/owl_happy.png": {
+    "path": "/assets/mascot/owl_happy.png",
+    "width": 181,
+    "height": 186,
+    "sourceBox": [
+      0,
+      560,
+      202,
+      750
+    ]
+  },
+  "mascot/owl_cheer.png": {
+    "path": "/assets/mascot/owl_cheer.png",
+    "width": 203,
+    "height": 178,
+    "sourceBox": [
+      202,
+      560,
+      405,
+      750
+    ]
+  },
+  "mascot/owl_thinking.png": {
+    "path": "/assets/mascot/owl_thinking.png",
+    "width": 185,
+    "height": 181,
+    "sourceBox": [
+      405,
+      560,
+      590,
+      750
+    ]
+  },
+  "ui/correct.png": {
+    "path": "/assets/ui/correct.png",
+    "width": 121,
+    "height": 99,
+    "sourceBox": [
+      605,
+      563,
+      726,
+      665
+    ]
+  },
+  "ui/wrong.png": {
+    "path": "/assets/ui/wrong.png",
+    "width": 101,
+    "height": 99,
+    "sourceBox": [
+      728,
+      563,
+      833,
+      665
+    ]
+  },
+  "ui/star.png": {
+    "path": "/assets/ui/star.png",
+    "width": 107,
+    "height": 91,
+    "sourceBox": [
+      832,
+      563,
+      939,
+      665
+    ]
+  },
+  "ui/coin.png": {
+    "path": "/assets/ui/coin.png",
+    "width": 86,
+    "height": 100,
+    "sourceBox": [
+      941,
+      563,
+      1050,
+      665
+    ]
+  },
+  "ui/timer.png": {
+    "path": "/assets/ui/timer.png",
+    "width": 100,
+    "height": 101,
+    "sourceBox": [
+      612,
+      667,
+      719,
+      776
+    ]
+  },
+  "ui/webcam.png": {
+    "path": "/assets/ui/webcam.png",
+    "width": 89,
+    "height": 107,
+    "sourceBox": [
+      723,
+      664,
+      826,
+      776
+    ]
+  },
+  "ui/progress_empty.png": {
+    "path": "/assets/ui/progress_empty.png",
+    "width": 198,
+    "height": 46,
+    "sourceBox": [
+      832,
+      669,
+      1039,
+      717
+    ]
+  },
+  "ui/progress_full.png": {
+    "path": "/assets/ui/progress_full.png",
+    "width": 199,
+    "height": 41,
+    "sourceBox": [
+      832,
+      721,
+      1039,
+      772
+    ]
+  },
+  "ui/button_start.png": {
+    "path": "/assets/ui/button_start.png",
+    "width": 200,
+    "height": 80,
+    "sourceBox": [
+      25,
+      817,
+      225,
+      897
+    ]
+  },
+  "ui/button_continue.png": {
+    "path": "/assets/ui/button_continue.png",
+    "width": 184,
+    "height": 80,
+    "sourceBox": [
+      236,
+      817,
+      420,
+      897
+    ]
+  },
+  "ui/button_replay.png": {
+    "path": "/assets/ui/button_replay.png",
+    "width": 200,
+    "height": 80,
+    "sourceBox": [
+      431,
+      817,
+      631,
+      897
+    ]
+  },
+  "ui/badge_correct.png": {
+    "path": "/assets/ui/badge_correct.png",
+    "width": 205,
+    "height": 89,
+    "sourceBox": [
+      646,
+      810,
+      852,
+      899
+    ]
+  },
+  "ui/badge_retry.png": {
+    "path": "/assets/ui/badge_retry.png",
+    "width": 163,
+    "height": 93,
+    "sourceBox": [
+      869,
+      808,
+      1041,
+      901
+    ]
+  },
+  "items/crystals.png": {
+    "path": "/assets/items/crystals.png",
+    "width": 318,
+    "height": 103,
+    "sourceBox": [
+      17,
+      956,
+      335,
+      1090
+    ]
+  },
+  "items/crystal_blue.png": {
+    "path": "/assets/items/crystal_blue.png",
+    "width": 85,
+    "height": 101,
+    "sourceBox": [
+      20,
+      959,
+      105,
+      1083
+    ]
+  },
+  "items/crystal_pink.png": {
+    "path": "/assets/items/crystal_pink.png",
+    "width": 77,
+    "height": 101,
+    "sourceBox": [
+      104,
+      959,
+      181,
+      1083
+    ]
+  },
+  "items/crystal_yellow.png": {
+    "path": "/assets/items/crystal_yellow.png",
+    "width": 79,
+    "height": 101,
+    "sourceBox": [
+      183,
+      959,
+      262,
+      1083
+    ]
+  },
+  "items/crystal_green.png": {
+    "path": "/assets/items/crystal_green.png",
+    "width": 71,
+    "height": 100,
+    "sourceBox": [
+      264,
+      959,
+      335,
+      1083
+    ]
+  },
+  "items/chest_closed.png": {
+    "path": "/assets/items/chest_closed.png",
+    "width": 137,
+    "height": 128,
+    "sourceBox": [
+      342,
+      947,
+      479,
+      1090
+    ]
+  },
+  "items/chest_open.png": {
+    "path": "/assets/items/chest_open.png",
+    "width": 138,
+    "height": 147,
+    "sourceBox": [
+      479,
+      938,
+      617,
+      1090
+    ]
+  },
+  "items/boss.png": {
+    "path": "/assets/items/boss.png",
+    "width": 187,
+    "height": 154,
+    "sourceBox": [
+      614,
+      936,
+      801,
+      1090
+    ]
+  },
+  "items/trophy.png": {
+    "path": "/assets/items/trophy.png",
+    "width": 156,
+    "height": 144,
+    "sourceBox": [
+      800,
+      946,
+      956,
+      1090
+    ]
+  },
+  "items/magic_wand.png": {
+    "path": "/assets/items/magic_wand.png",
+    "width": 75,
+    "height": 154,
+    "sourceBox": [
+      954,
+      936,
+      1055,
+      1090
+    ]
+  },
+  "backgrounds/01_forest.png": {
+    "path": "/assets/backgrounds/01_forest.png",
+    "width": 238,
+    "height": 144,
+    "sourceBox": [
+      26,
+      1137,
+      264,
+      1281
+    ]
+  },
+  "backgrounds/02_rainbow.png": {
+    "path": "/assets/backgrounds/02_rainbow.png",
+    "width": 239,
+    "height": 144,
+    "sourceBox": [
+      281,
+      1137,
+      520,
+      1281
+    ]
+  },
+  "backgrounds/03_island.png": {
+    "path": "/assets/backgrounds/03_island.png",
+    "width": 235,
+    "height": 144,
+    "sourceBox": [
+      540,
+      1137,
+      775,
+      1281
+    ]
+  },
+  "backgrounds/04_castle.png": {
+    "path": "/assets/backgrounds/04_castle.png",
+    "width": 238,
+    "height": 144,
+    "sourceBox": [
+      794,
+      1137,
+      1032,
+      1281
+    ]
+  },
+  "camera/frame.png": {
+    "path": "/assets/camera/frame.png",
+    "width": 357,
+    "height": 152,
+    "sourceBox": [
+      354,
+      1324,
+      712,
+      1476
+    ]
+  }
+}

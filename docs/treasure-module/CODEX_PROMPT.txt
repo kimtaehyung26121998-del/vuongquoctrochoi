@@ -1,0 +1,29 @@
+# GIAI ĐOẠN 3 – TÍCH HỢP MODULE ĐẢO KHO BÁU VÀO GAME HIỆN HÀNH
+
+Thông tin hiện trạng đã kiểm chứng với người dùng:
+- Webcam laptop nhận diện A, B, C, D ổn định qua 12 câu.
+- Rừng Phép Tính và Cầu Vồng Thử Thách đã được kiểm thử webcam thật.
+- Hai màn đã dùng chung useAnswerCamera, đã sửa auto-arm.
+- Trạng thái game, âm thanh, hình ảnh và cơ chế tính điểm hiện hành PHẢI được bảo toàn.
+
+Trong workspace có module mới ở src/stages/treasure/ và 2 SVG ở public/assets/treasure/. Đọc docs/CODEX_TICH_HOP.md trước.
+
+NHIỆM VỤ CẦN LÀM TRÊN MÃ NGUỒN THẬT:
+1. Xác nhận đúng thư mục dự án, đọc AGENTS.md, ForestAdventure.tsx, RainbowScene.tsx, useAnswerCamera.ts (hoặc tệp tương đương), cấu hình câu hỏi và router. Sao lưu hoặc Git commit.
+2. Nối màn Đảo Kho Báu vào menu/bản đồ hiện hành bằng cùng hệ thống chuyển màn và chế độ unlock, không làm hỏng màn 1, 2 hoặc 12 câu gốc.
+3. Dùng 3 câu hiện hành của chặng 3 (q07–q09 nếu chưa thay đổi). Mỗi câu gồm 4 đáp án A, B, C, D. Màn chơi lần lượt: bản đồ → chìa khóa → mở rương pha lê.
+4. Dùng TreasureIslandStage cho UI câu hỏi + phong cảnh; hoặc dùng TreasureIslandScene nếu hệ thống hiện tại đã có UI câu hỏi/đáp án chung. Không được hiển thị hai bộ đáp án.
+5. KHÔNG tạo usePoseCamera hoặc useAnswerCamera mới trong màn 3. Truyền vào props phase/round/outcomes từ event 'confirmed answer' của engine đang chạy, kể cả chọn tay và timeout. Chỉ ghi một kết quả cho một câu. Có thể dùng recordTreasureOutcome để chặn trùng.
+6. Màn 3 chốt ngay sau khi giữ tư thế 1 giây theo cơ chế đã có của màn Rừng/Cầu Vồng. Không bắt hạ tay 0,5 giây vô cớ ở câu đầu tiên.
+7. Nếu đúng: dùng score logic cũ +10, biểu diễn vật phẩm sáng/hiệu ứng và tiếng thưởng. Nếu sai hoặc timeout: 0 điểm, có giải thích; câu chuyện vẫn tiến triển nhờ cú mèo hỗ trợ. Tránh tính hai lần.
+8. Nếu câu 3 hoàn thành: ở pha feedback cho xem rương mở, rồi ở pha complete hiển thị pha lê và tổng kết; cập nhật mở khóa Lâu Đài Boss qua cơ chế tiến độ hiện hành, lưu cục bộ nếu đang dùng localStorage.
+9. Tái sử dụng nhạc /audio/music/03_dao_kho_bau.ogg, sfx chest_open.wav, collect_crystal.wav. Chỉ phát 1 lần/sự kiện được chốt. Giữ bật/tắt âm thanh.
+10. Có pause/resume, bỏ qua hoạt hình, chọn đáp án thủ công, thoát màn; giữ nguyên thanh webcam và Debug Camera từ bản mới.
+11. Ưu tiên hiệu năng: không remount webcam không cần thiết; chỉ phát hiệu ứng khi có kết quả đã chốt; không dùng setInterval độc lập để chấm đáp án; không reset hook vì CSS animation.
+12. Chạy npm test (nếu có), npm run build; sửa lỗi; mô tả các tình huống chỉ có thể kiểm thử webcam thật trên laptop.
+
+SAU KHI HOÀN THÀNH HÃY BÁO CÁO:
+- File đã sửa / thêm.
+- Bản đồ tiến độ 3 màn và trạng thái mở khóa màn 4.
+- Cách thử đúng/sai/timeout, 2 câu cùng một chữ, pause/resume, chuyển màn, bài thử 12 câu.
+- Có/không thử webcam thật. Không được tự khẳng định đã thử nếu chưa.

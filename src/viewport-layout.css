@@ -1,0 +1,54 @@
+/* Khung ứng dụng cố định; nội dung dài chỉ cuộn trong từng vùng. */
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+#root{height:calc(100dvh / 0.931);min-height:0;overflow:hidden}
+.forest-app{height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+.forest-app .forest-layout{height:auto;min-height:0;min-width:0;overflow:hidden}
+#root .forest-app .forest-main{min-height:0;grid-template-rows:minmax(0,1fr) clamp(290px,44vh,400px)}
+.forest-app .forest-scene,.forest-app .rainbow-scene{min-height:0}
+#root .forest-app .treasure-island--compact,#root .forest-app .mk-boss--compact{min-height:0;overflow:hidden}
+#root .forest-app .mk-boss--compact .mk-boss__arena{min-height:0}
+.forest-app .forest-question{min-height:0;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable}
+.forest-app .forest-question-meta{min-height:32px;align-items:flex-start;line-height:1.35}
+.forest-app .forest-question-meta>span:last-child{max-width:65%;text-align:right}
+.forest-app .forest-feedback{height:112px;min-height:112px;align-content:flex-start;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable}
+.forest-app .forest-sidebar{min-height:0;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable;padding-right:3px}
+.forest-app .forest-camera{flex-shrink:0}
+.forest-app .forest-camera .camera-message{height:76px;min-height:76px;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable;line-height:1.4}
+.forest-app .forest-camera .pose-detected{height:40px;min-height:40px}
+.forest-app .forest-camera .hold-head{min-height:20px}
+.forest-app .forest-camera .video-placeholder p{min-height:30px}
+.forest-app .forest-camera .forest-note{max-height:54px;overflow:auto}
+.world-map{height:100%;min-height:0;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:clamp(18px,3vh,36px) clamp(20px,3vw,50px)}
+.world-map .map-header{margin-bottom:20px}
+.world-map .world-route{align-content:center}
+.world-map .map-footer{padding-top:20px}
+.boss-victory{height:100%;min-height:0;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable}
+.site{height:100%;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable}
+#root>.return-menu{height:42px;margin:8px 24px}
+#root>.return-menu+.site{height:calc(100% - 58px)}
+.site .camera-message{height:80px;min-height:80px;overflow:auto;overflow-anchor:none}
+.site .hint{min-height:48px}
+.site .feedback{min-height:100px}
+@media(min-width:1700px){.forest-app .forest-feedback{height:132px;min-height:132px}.forest-app .forest-camera .camera-message{height:92px;min-height:92px}}
+@media(max-height:760px) and (min-width:1000px){
+  #root .forest-app .forest-main{grid-template-rows:minmax(0,1fr) 286px}
+  .forest-app .forest-feedback{height:104px;min-height:104px}
+  .forest-app .forest-camera .camera-message{height:72px;min-height:72px}
+  .world-map .map-header>img{height:100px;width:95px}
+  .world-map .map-header h1{font-size:38px;margin:6px 0}
+  .world-map .map-header p{margin:6px 0;font-size:14px}
+  .world-map .map-stage-picture{height:clamp(100px,22vh,180px)}
+  .world-map .map-stage-copy{min-height:135px;padding-top:20px}
+}
+@media(max-width:999px){
+  .forest-app{grid-template-rows:auto minmax(0,1fr)}
+  #root .forest-app .forest-main{grid-template-rows:minmax(0,1fr) minmax(0,52%)}
+  .forest-app .forest-header{margin-bottom:10px}
+  .world-map{grid-template-rows:auto auto auto;align-content:start}
+}
+@media(max-width:650px){
+  .forest-app .forest-layout{display:block;overflow:auto;scrollbar-gutter:stable;overflow-anchor:none}
+  #root .forest-app .forest-main{height:calc(100dvh / 0.931 - 140px);min-height:500px;grid-template-rows:minmax(150px,1fr) minmax(0,55%)}
+  .forest-app .forest-sidebar{overflow:visible;margin-top:12px}
+  .world-map .map-header{margin-bottom:16px}
+}
