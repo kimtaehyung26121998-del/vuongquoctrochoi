@@ -67,7 +67,7 @@ function BossCastleSceneInner({
         <div className="mk-boss__portal" aria-hidden="true" />
         <div className="mk-boss__floor" aria-hidden="true" />
         <div className="mk-boss__hero">
-          <img src="/assets/mascot/owl_cheer.png" alt="Cú mèo đang chuẩn bị thi triển phép thuật" />
+          <img src={victory || (isFeedback && lastAttempt.result === 'correct') ? '/assets/mascot/robot_cheer.png' : isFeedback || phase === 'thinking' ? '/assets/mascot/robot_thinking.png' : phase === 'intro' ? '/assets/mascot/robot_guide.png' : '/assets/mascot/robot_neutral.png'} alt="Robot đồng hành thi triển phép thuật" />
           <div className="mk-boss__hero-label">Đội Toán Nhí</div>
         </div>
         <div className="mk-boss__beam" aria-hidden="true" />
@@ -95,7 +95,7 @@ function BossCastleSceneInner({
 
       {(victory || practiceComplete) && !embedded && (
         <div className={`mk-boss__result ${victory ? 'mk-boss__result--win' : ''}`} role="status" aria-live="polite">
-          <img src={victory ? '/assets/items/trophy.png' : '/assets/mascot/owl_thinking.png'} alt="" />
+          <img src={victory ? '/assets/items/trophy.png' : '/assets/mascot/robot_thinking.png'} alt="" />
           <div>
             <small>{victory ? 'CHÚC MỪNG!' : 'CẦN LUYỆN TẬP THÊM'}</small>
             <h3>{victory ? 'Vương quốc đã được giải cứu!' : 'Boss vẫn còn khiên phép thuật'}</h3>

@@ -55,7 +55,7 @@ function BossCastleStageInner({
               </button>
             ))}
           </div>
-          <p className="mk-boss-stage__hint">{answering ? 'Đứng trước webcam và giữ một tư thế trong 1 giây.' : 'Cú mèo đang cổ vũ! Sẵn sàng cho thử thách tiếp theo.'}</p>
+          <p className="mk-boss-stage__hint">{answering ? 'Đứng trước webcam và giữ một tư thế trong 1 giây.' : 'Robot đang cổ vũ! Sẵn sàng cho thử thách tiếp theo.'}</p>
           {feedback && question.explanation && <p className="mk-boss-stage__explanation"><strong>Cùng xem cách giải:</strong> {question.explanation}</p>}
         </section>
       )}

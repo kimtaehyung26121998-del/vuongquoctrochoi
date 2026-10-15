@@ -66,7 +66,7 @@ export function bossAudioForAttempt(attempt: BossAttempt, wasDefeated: boolean):
     : '/audio/sfx/adventure/boss_hit.wav'
 }
 
-export const BOSS_MUSIC = '/audio/music/04_lau_dai_boss.ogg'
+export const BOSS_MUSIC = '/audio/music/04_lau_dai_boss_violet.ogg'
 
 /**
  * Suggestion for the host: use a DIFFERENT question after a miss so children

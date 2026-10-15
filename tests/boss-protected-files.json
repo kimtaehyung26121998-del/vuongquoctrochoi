@@ -1,11 +1,11 @@
 {
   "files": {
     "src/forest.css": "98719064124c2db77ca1007097494aeca1d37de6253be557a6202449a3ad5a9c",
-    "src/ForestAdventure.tsx": "19af2471a3cab05732904d78690cc7f1186bd4d8ea3f1e31da2e47af6901cd1a",
+    "src/ForestAdventure.tsx": "3b509e3912ae8a3d0b1a1b103e0cb51db86f4451d46084fc5d4d37190dc265a4",
     "src/forestState.ts": "ec7c6a4b7159d305827c6ac07996b3b3ba82ed15fdca81990da419202159b523",
-    "src/LegacyApp.tsx": "77bf3f14bc290469846adebca1f3b6d509de8c318613c3e2e4a781c910ca4457",
+    "src/LegacyApp.tsx": "a2f58a70243c5646703d02db4cfa550e26b67435825e8b3ab1d26fce2c962ae5",
     "src/adventure/rainbow.css": "2820a8adfd01a086271e6740253774f115b218733fb14263c99d30fd968fb633",
-    "src/adventure/RainbowScene.tsx": "4838ef7d282c4d9d2351c01989ffc877a785677e3454eeb5a707baeb25772afc",
+    "src/adventure/RainbowScene.tsx": "f883d88bccb5baca667b12c41ec2aaa8cfa220d21793322e892bcbd3b36302e7",
     "src/ai/cameraDebug.css": "5ef258a80390236a499b1a8920eea75a412a4637e0d394886af3ce1a8b6739dc",
     "src/ai/CameraDebug.tsx": "b2d64f1a7d2e5c6b7b52b88c6f92d1f1c8dda6333f86419d4ae36e6fb22e2756",
     "src/ai/cameraDiagnostics.ts": "e67f8aba716284a6a6139ddcba3775cc47d41e2a3d08704b62286acd8ab11f96",
@@ -17,7 +17,7 @@
     "src/ai/usePoseCamera.ts.bak_20261015_081153": "cb062564a1a2fc75a460605428176dc4d7f5e0e1d6930527099e7c566e611230",
     "src/data/questions.ts": "889bdd128a880ad034645fdfce171aec3b68f3f13e668db90b990f025617ee57",
     "src/stages/treasure/treasureIsland.css": "21e4a233911456d095da11eace740e08129a411e7b681415814e8c0d2f4ba85a",
-    "src/stages/treasure/TreasureIslandScene.tsx": "e1ef7dac16edf5eccecd51e03092a64ce1bc9f4dc1312ee6fb5bb13e61fa95ca",
+    "src/stages/treasure/TreasureIslandScene.tsx": "e982ca3a69af6c2784da3cdbf57405692009b1e11591dc5d4f9c04af72f48b25",
     "src/stages/treasure/TreasureIslandStage.tsx": "51704391c5a807690b24fd1d243d45713be0e7da9edabaf74509cb54b3ae4383",
     "src/stages/treasure/treasureModel.ts": "771c80d97fb610f0b78ed9abb89a4c6ac5b9e7ece6b10bb632c3e98889d10030"
   },

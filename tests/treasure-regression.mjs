@@ -8,7 +8,8 @@ import {unlockRoute} from './unlock-route.mjs'
 
 const {TREASURE_STAGE:config,ADVENTURE_STAGES}=await import(loadUrl('src/adventure/stages.ts'))
 const {ADVENTURE_STAGES:oldStages}=await import(loadUrl('backups/before-answer-engine-20261015_085218/src/adventure/stages.ts'))
-assert.deepEqual(ADVENTURE_STAGES.slice(0,2),oldStages.slice(0,2),'Cấu hình Rừng/Cầu Vồng giữ nguyên')
+const robotCopy=stage=>({...stage,intro:stage.id==='rainbow'?'Ba đoạn cầu vồng đang ngủ quên. Dùng phép toán để thiên thần hóa phép tạo cầu vồng qua những hòn đảo trên mây!':stage.intro.replaceAll('Cú ','Robot '),completeText:stage.id==='rainbow'?'Cầu vồng đã nối liền! Em và Robot đã tới Đảo Kho Báu nhờ phép thuật của thiên thần.':stage.completeText.replaceAll('Cú ','Robot ')})
+assert.deepEqual(ADVENTURE_STAGES.slice(0,2),oldStages.slice(0,2).map(robotCopy),'Cấu hình Rừng/Cầu Vồng giữ nguyên ngoài tên nhân vật')
 assert.deepEqual(config.questions.map(q=>q.id),['q07','q08','q09'])
 assert.equal(config.ready,true)
 const {createStageReducer,initialStage,stageScore}=await import(loadUrl('src/adventure/stageState.ts'))
@@ -81,9 +82,9 @@ for(const kind of ['wrong','unanswered']){
   assert.equal((html.match(/objective--done/g)||[]).length,0,'Sai/hết giờ không có trạng thái đúng')
   assert.equal((html.match(/objective--assisted/g)||[]).length,3)
   assert.ok(html.includes(kind==='wrong'?'Chưa đúng · +0 điểm':'Chưa trả lời · +0 điểm'))
-  assert.ok(!html.includes('treasure-island__sparkles'),'Không tung sao thưởng khi Cú hỗ trợ')
+  assert.ok(!html.includes('treasure-island__sparkles'),'Không tung sao thưởng khi Robot hỗ trợ')
   assert.ok(!html.includes('chest_open.png'),'Sai không được mở rương')
-  assert.ok(html.includes('owl_thinking.png'),'Cú hướng dẫn xem lại, không reo mừng đáp án sai')
+  assert.ok(html.includes('robot_thinking.png'),'Robot hướng dẫn xem lại, không reo mừng đáp án sai')
 }
 console.log('PASS: Sai/hết giờ hiển thị 0 điểm, không dấu tích đúng hoặc sao thưởng; tách rõ tiến độ hành trình và số câu đúng.')
 
@@ -110,11 +111,11 @@ console.log('PASS: Sai/hết giờ hiển thị 0 điểm, không dấu tích đ
       assert.ok(html.includes('--treasure-route-to:1'),'Đáp án cuối đến điểm cuối đường đi')
       assert.ok(html.includes('data-at-chest="true"'))
       const finish=renderToStaticMarkup(React.createElement(TreasureScene,{...props,phase:'complete',outcomes:[...earned,correct]}))
-      assert.ok(finish.includes('--treasure-route-to:1'),'Tổng kết giữ Cú ở rương')
+      assert.ok(finish.includes('--treasure-route-to:1'),'Tổng kết giữ Robot ở rương')
       assert.ok(!finish.includes('owl--moving'),'Tổng kết không bay lại từ đầu')
     }
   }
-  console.log('PASS: Cú tiến 3 bước chỉ khi đúng, sai/timeout đứng yên, câu cuối tới rương và ở lại khi tổng kết.')
+  console.log('PASS: Robot tiến 3 bước chỉ khi đúng, sai/timeout đứng yên, câu cuối tới rương và ở lại khi tổng kết.')
 }
 
 // Tích hợp component thật với sự kiện đã chốt và đồng hồ có thể điều khiển.
@@ -223,10 +224,10 @@ try{
   await unlockRoute(renderer,act,3)
   assert.equal(renderer.root.findAllByType('button').filter(n=>n.props.className==='map-stage'&&n.props.disabled).length,0)
   await click('Đảo kho báu')
-  assert.ok(text(renderer.root).includes('Cùng Cú khám phá Đảo Kho Báu'))
+  assert.ok(text(renderer.root).includes('Cùng Robot khám phá Đảo Kho Báu'))
   await click('← Bản đồ')
   await click('Lâu đài Boss')
-  assert.ok(text(renderer.root).includes('Cùng Cú phá ba lớp khiên Boss'))
+  assert.ok(text(renderer.root).includes('Cùng Robot phá ba lớp khiên Boss'))
   await act(async()=>renderer.unmount());renderer=null
   console.log('PASS: Engine thật: manual/webcam/timeout, chặn click trùng, camera retry, pause/resume, mute, audio một lần, replay, video cố định, map vào Kho Báu/Boss.')
 }finally{

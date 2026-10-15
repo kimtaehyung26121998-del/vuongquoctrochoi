@@ -77,7 +77,8 @@ const hash=bytes=>crypto.createHash('sha256').update(bytes).digest('hex')
 for(const [file,expected] of Object.entries(manifest.files))assert.equal(hash(fs.readFileSync(file)),expected,file+' không được thay đổi khi tích hợp Boss')
 const nonBossReducer=fs.readFileSync('src/adventure/stageState.ts','utf8').split('  return function reduce')[1]
 assert.equal(hash(nonBossReducer),manifest.nonBossReducerSha256)
-for(const file of ['/assets/items/boss.png','/assets/items/trophy.png','/audio/music/04_lau_dai_boss.ogg','/audio/sfx/adventure/boss_hit.wav','/audio/sfx/adventure/boss_defeated.wav'])assert.ok(fs.existsSync('public'+file))
+for(const file of ['/assets/items/boss.png','/assets/items/trophy.png','/audio/music/04_lau_dai_boss_violet.ogg','/audio/sfx/adventure/boss_hit.wav','/audio/sfx/adventure/boss_defeated.wav'])assert.ok(fs.existsSync('public'+file))
+assert.equal(config.music,'/audio/music/04_lau_dai_boss_violet.ogg')
 console.log('PASS: lưu Boss 30 điểm, giữ tiến độ cũ; SHA-256 camera/reducer và các file được bảo vệ đạt baseline; asset đủ.')
 
 // Component engine thật; chỉ mô phỏng camera và đồng hồ để điều khiển sự kiện.
@@ -180,7 +181,7 @@ try{
   progressApi.writeProgress(localStorage,base);globalThis.window={localStorage}
   await act(async()=>{renderer=create(React.createElement(App))})
   await unlockRoute(renderer,act,3)
-  await click('Lâu đài Boss');assert.ok(text(renderer.root).includes('Cùng Cú phá ba lớp khiên Boss'))
+  await click('Lâu đài Boss');assert.ok(text(renderer.root).includes('Cùng Robot phá ba lớp khiên Boss'))
   await click('← Bản đồ');assert.ok(text(renderer.root).includes('Bản đồ phiêu lưu'))
   console.log('PASS: Engine Boss manual/webcam/timeout, pause/mute, 4 đáp án, audio một lần, video cố định, thắng đúng 3 hit, hết pool/luyện lại và map.')
 }finally{

@@ -7,6 +7,7 @@ import {
   type TreasureRound,
 } from './treasureModel'
 import './treasureIsland.css'
+import {WorkRobot,WorkDust} from '../../adventure/WorkEffects'
 
 export interface TreasureIslandSceneProps {
   /** Current question index in this stage: 0, 1 or 2. */
@@ -89,12 +90,14 @@ function TreasureIslandSceneInner({
         </svg>
         <div
           key={progress.correct}
-          className={'treasure-island__owl'+(moving?' treasure-island__owl--moving':'')}
+          className={'treasure-island__owl'+(moving?' treasure-island__owl--moving '+(round<2?'robot-digging':'robot-unlocking'):'')}
           style={routeStyle}
           data-route-step={progress.correct}
           data-at-chest={progress.completed}
         >
-          <img src={assisted ? '/assets/mascot/owl_thinking.png' : lastOutcome?.isCorrect || stageComplete ? '/assets/mascot/owl_cheer.png' : '/assets/mascot/owl_happy.png'} alt="Cú mèo hướng dẫn chuyến phiêu lưu" />
+          <img src={assisted ? '/assets/mascot/robot_thinking.png' : stageComplete ? '/assets/mascot/robot_cheer.png' : '/assets/mascot/robot_neutral.png'} alt="Robot hướng dẫn chuyến phiêu lưu" />
+          {moving&&round<2&&<><WorkRobot kind="shovel"/><WorkDust/><img className="dug-reward" src={TREASURE_STEPS[round]!.item} alt={round===0?'Đào được mảnh bản đồ':'Đào được chìa khóa vàng'}/></>}
+          {progress.hasKey&&<img className={'held-key'+(moving&&round===1?' held-key--found':'')} src="/assets/treasure/golden_key.svg" alt="Robot cầm sẵn chìa khóa vàng"/>}
           <span>{assisted ? 'Cùng xem lại nhé!' : lastOutcome?.isCorrect ? 'Đúng rồi! +10' : 'Khám phá nào!'}</span>
         </div>
         <div className="treasure-island__trail" aria-hidden="true" />
@@ -104,6 +107,7 @@ function TreasureIslandSceneInner({
             src={progress.chestOpened ? '/assets/items/chest_open.png' : '/assets/items/chest_closed.png'}
             alt={progress.chestOpened ? 'Rương kho báu đã mở' : 'Rương kho báu đang khóa'}
           />
+          {moving&&round===2&&<img className="treasure-island__chest opening-chest-cover" src="/assets/items/chest_closed.png" alt=""/>}
           {progress.chestOpened && (
             <img className="treasure-island__crystal" src="/assets/items/crystal_yellow.png" alt="Pha lê vàng" />
           )}
@@ -152,7 +156,7 @@ function TreasureIslandSceneInner({
           aria-live="polite"
         >
           <b>{lastOutcome.isCorrect ? step.success : step.gentleFallback}</b>
-          <span>{lastOutcome.isCorrect ? 'Nhận thêm một ngôi sao phép thuật!' : 'Không cộng điểm. Hãy đọc lời giải cùng Cú mèo nhé!'}</span>
+          <span>{lastOutcome.isCorrect ? 'Nhận thêm một ngôi sao phép thuật!' : 'Không cộng điểm. Hãy đọc lời giải cùng Robot nhé!'}</span>
           {onSkipAnimation && <button type="button" onClick={onSkipAnimation}>Bỏ qua hiệu ứng</button>}
         </div>
       )}

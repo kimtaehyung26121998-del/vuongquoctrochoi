@@ -16,10 +16,10 @@ export default function BossVictoryScreen({score,muted,onToggleSound,onMap,onRep
       <div className="victory-trophy-scene" aria-hidden="true"><div className="victory-halo"/><span className="victory-spark spark-one">✦</span><span className="victory-spark spark-two">✦</span><span className="victory-spark spark-three">✧</span><img className="victory-trophy" src="/assets/items/trophy.png" alt=""/><div className="victory-podium"/></div>
       <div className="victory-stars" aria-label="Đã phá đủ 3 lớp khiên">★ ★ ★</div>
       <h1 id="boss-victory-title" ref={title} tabIndex={-1}>Chúc mừng bạn đã<br/><span>tiêu diệt Boss!</span></h1>
-      <p className="victory-message">Vương quốc đã được giải cứu!<br/>Bạn và Cú đã hoàn thành cả bốn màn phiêu lưu.</p>
+      <p className="victory-message">Vương quốc đã được giải cứu!<br/>Bạn và Robot đã hoàn thành cả bốn màn phiêu lưu.</p>
       <div className="victory-medal"><span>NHÀ VÔ ĐỊCH TOÁN HỌC</span><strong>{score} điểm <i>·</i> 3/3 khiên đã phá</strong></div>
       <div className="victory-actions"><button className="victory-primary" onClick={onMap}>Về bản đồ →</button><button className="victory-secondary" onClick={onReplay}>Chơi lại Boss</button></div>
-      <p className="victory-signoff">Một hành trình tuyệt vời. Cú tự hào về bạn!</p>
+      <p className="victory-signoff">Một hành trình tuyệt vời. Robot tự hào về bạn!</p>
     </section>
   </main>
 }

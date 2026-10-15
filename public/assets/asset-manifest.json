@@ -394,5 +394,117 @@
       712,
       1476
     ]
+  },
+  "mascot/robot_neutral.png": {
+    "path": "/assets/mascot/robot_neutral.png",
+    "width": 420,
+    "height": 660,
+    "source": "Bộ bốn robot hoạt hình đáng yêu.png",
+    "splitScript": "scripts/split_robot.ps1"
+  },
+  "mascot/robot_guide.png": {
+    "path": "/assets/mascot/robot_guide.png",
+    "width": 420,
+    "height": 660,
+    "source": "Bộ bốn robot hoạt hình đáng yêu.png",
+    "splitScript": "scripts/split_robot.ps1"
+  },
+  "mascot/robot_cheer.png": {
+    "path": "/assets/mascot/robot_cheer.png",
+    "width": 420,
+    "height": 660,
+    "source": "Bộ bốn robot hoạt hình đáng yêu.png",
+    "splitScript": "scripts/split_robot.ps1"
+  },
+  "mascot/robot_thinking.png": {
+    "path": "/assets/mascot/robot_thinking.png",
+    "width": 420,
+    "height": 660,
+    "source": "Bộ bốn robot hoạt hình đáng yêu.png",
+    "splitScript": "scripts/split_robot.ps1"
+  },
+  "mascot/angel_neutral.png": {
+    "path": "/assets/mascot/angel_neutral.png",
+    "width": 420,
+    "height": 750,
+    "source": "Bộ nhân vật thiên thần chibi đáng yêu.png",
+    "splitScript": "scripts/split_angel.ps1"
+  },
+  "mascot/angel_guide.png": {
+    "path": "/assets/mascot/angel_guide.png",
+    "width": 420,
+    "height": 750,
+    "source": "Bộ nhân vật thiên thần chibi đáng yêu.png",
+    "splitScript": "scripts/split_angel.ps1"
+  },
+  "mascot/angel_cheer.png": {
+    "path": "/assets/mascot/angel_cheer.png",
+    "width": 420,
+    "height": 750,
+    "source": "Bộ nhân vật thiên thần chibi đáng yêu.png",
+    "splitScript": "scripts/split_angel.ps1"
+  },
+  "mascot/angel_thinking.png": {
+    "path": "/assets/mascot/angel_thinking.png",
+    "width": 420,
+    "height": 750,
+    "source": "Bộ nhân vật thiên thần chibi đáng yêu.png",
+    "splitScript": "scripts/split_angel.ps1"
+  },
+  "mascot/robot_hammer_0.png": {
+    "path": "/assets/mascot/robot_hammer_0.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_hammer_1.png": {
+    "path": "/assets/mascot/robot_hammer_1.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_hammer_2.png": {
+    "path": "/assets/mascot/robot_hammer_2.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_hammer_3.png": {
+    "path": "/assets/mascot/robot_hammer_3.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_shovel_0.png": {
+    "path": "/assets/mascot/robot_shovel_0.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_shovel_1.png": {
+    "path": "/assets/mascot/robot_shovel_1.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_shovel_2.png": {
+    "path": "/assets/mascot/robot_shovel_2.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
+  },
+  "mascot/robot_shovel_3.png": {
+    "path": "/assets/mascot/robot_shovel_3.png",
+    "width": 420,
+    "height": 520,
+    "source": "mascot/robot_work_sheet.png",
+    "splitScript": "scripts/split_work_frames.ps1"
   }
 }

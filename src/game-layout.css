@@ -1,0 +1,85 @@
+/* Cảnh chơi là vùng chính; câu hỏi và camera giữ chiều cao theo nội dung. */
+html, body { height:auto; min-height:100%; overflow:auto; overscroll-behavior:auto; }
+#root { zoom:1; height:auto; min-height:100dvh; overflow:visible; }
+.forest-app { height:100dvh; min-height:740px; padding:10px 16px 14px; overflow:visible; grid-template-rows:56px minmax(0,1fr); gap:10px; }
+.forest-app .forest-header { height:auto; min-height:0; padding:0; gap:16px; }
+.forest-app .forest-header h1 { font-size:26px; }
+.forest-app .forest-layout { grid-template-columns:minmax(0,1fr) 286px; gap:14px; overflow:visible; }
+#root .forest-app .forest-main { min-height:0; grid-template-rows:minmax(340px,1fr) auto; gap:10px; }
+.forest-app .forest-scene,.forest-app .rainbow-scene { min-height:340px; }
+#root .forest-app .treasure-island--compact,#root .forest-app .mk-boss--compact { min-height:340px; }
+.forest-app .forest-question { padding:12px 16px; overflow:visible; scrollbar-gutter:auto; }
+.forest-app .forest-question-meta { min-height:20px; font-size:12px; line-height:1.4; }
+.forest-app .forest-question-meta>span:last-child { max-width:70%; }
+.forest-app .forest-question h2 { font-size:clamp(28px,2.8vw,42px); line-height:1.2; margin:6px 0 10px; }
+.forest-app .forest-answers { gap:10px; grid-template-columns:repeat(4,minmax(0,1fr)); }
+.forest-app .forest-answer { min-height:112px; grid-template-columns:40px minmax(0,1fr) 64px; gap:6px; padding:8px; font-size:clamp(32px,3vw,46px); overflow:hidden; }
+.forest-app .forest-answer b { width:40px; height:46px; font-size:30px; }
+.forest-app .forest-answer img { grid-column:auto; width:64px; height:94px; margin:0; }
+.forest-app .forest-answer span { overflow-wrap:anywhere; }
+.forest-app .forest-feedback { height:auto; min-height:48px; font-size:13px; gap:6px 12px; padding-top:8px; overflow:visible; scrollbar-gutter:auto; }
+.forest-app .forest-feedback strong { flex-basis:auto; }
+.forest-app .forest-intro p { font-size:15px; margin:8px 0; }
+.forest-app .forest-intro h2 { font-size:28px; }
+.forest-app .forest-finish { min-height:180px; }
+.forest-app .forest-sidebar { overflow:auto; scrollbar-gutter:auto; padding-right:3px; gap:10px; }
+.forest-app .forest-camera { order:0; padding:12px; }
+.forest-app .forest-camera .video-wrap { aspect-ratio:16/10; margin:8px 0; }
+.forest-app .forest-camera .pose-detected { height:auto; min-height:36px; }
+.forest-app .forest-camera .camera-message { height:auto; min-height:40px; overflow:visible; scrollbar-gutter:auto; margin:8px 0; font-size:12px; }
+.forest-app .forest-camera .forest-note { max-height:none; overflow:visible; }
+.forest-app .forest-pose-guide { order:1; padding:10px; }
+.forest-app .forest-pose-guide h3 { font-size:16px; margin-bottom:6px; }
+.forest-app .forest-pose-guide img { height:92px; }
+.forest-app .forest-pose-guide figcaption { font-size:24px; }
+.forest-app .forest-pose-guide p { font-size:12px; }
+.forest-app .forest-tools { order:2; }
+.forest-app .forest-sidebar>.forest-note { order:3; }
+.forest-app .forest-camera .btn { font-size:12px; }
+.forest-app .traveler>img { width:clamp(100px,12vw,160px); height:clamp(150px,19vh,205px); }
+.forest-app .owl-dialog,.forest-app .sky-dialog { font-size:14px; padding:7px 12px; }
+.forest-app .forest-scene .traveler { bottom:29%; }
+.sky-helper { position:absolute; z-index:7; right:3%; top:8%; width:clamp(90px,11vw,140px); height:38%; pointer-events:none; }
+.sky-helper .angel-actor { width:100%; height:100%; }
+.sky-helper>span { display:block; text-align:center; font-size:11px; font-weight:800; color:#54548a; background:#fffdf2e8; border-radius:12px; padding:3px; }
+.sky-traveler.sky-flying { animation-delay:1.5s; }
+.sky-traveler>img { width:13%; height:38%; }
+.angel-magic-trail { left:35%; top:25%; width:50%; transform:scaleX(-1); }
+.treasure-island--compact .treasure-island__playfield { min-height:175px; --treasure-owl-width:92px; }
+.treasure-island--compact .treasure-island__header { padding:12px 18px 0; }
+.treasure-island--compact .treasure-island__header h2 { font-size:24px; }
+.treasure-island--compact .treasure-island__objective { padding:7px 9px; }
+
+@media(min-width:1700px) {
+  .forest-app { min-height:850px; padding:16px 24px; grid-template-rows:64px minmax(0,1fr); }
+  .forest-app .forest-layout { grid-template-columns:minmax(0,1fr) 340px; gap:20px; }
+  .forest-app .forest-answer { min-height:132px; grid-template-columns:48px minmax(0,1fr) 88px; }
+  .forest-app .forest-answer img { width:88px; height:112px; }
+  .forest-app .forest-answer b { width:48px; font-size:34px; }
+  .forest-app .forest-pose-guide img { height:120px; }
+}
+@media(max-width:1100px) {
+  .forest-app .forest-layout { grid-template-columns:minmax(0,1fr) 254px; }
+  .forest-app .forest-answer { grid-template-columns:34px minmax(0,1fr) 48px; gap:4px; padding:6px; font-size:32px; }
+  .forest-app .forest-answer b { width:34px; font-size:26px; }
+  .forest-app .forest-answer img { width:48px; }
+}
+@media(max-width:850px) {
+  .forest-app { height:auto; min-height:100dvh; grid-template-rows:auto auto; }
+  .forest-app .forest-header { flex-wrap:wrap; }
+  .forest-app .forest-layout { display:flex; flex-direction:column; }
+  #root .forest-app .forest-main { height:auto; min-height:0; grid-template-rows:380px auto; }
+  .forest-app .forest-sidebar { display:grid; grid-template-columns:1fr 1fr; overflow:visible; }
+  .forest-app .forest-answer { grid-template-columns:34px minmax(0,1fr) 54px; }
+  .forest-app .forest-answer img { width:54px; }
+}
+@media(max-width:540px) {
+  .forest-app { padding:10px; }
+  .forest-app .forest-answers { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .forest-app .forest-sidebar { display:flex; flex-direction:column; }
+  .forest-app .forest-header h1 { font-size:22px; }
+  .forest-app .forest-header { gap:8px; }
+  .forest-app .forest-score { font-size:26px; }
+  .forest-app .forest-question-meta { flex-wrap:wrap; }
+  .forest-app .forest-question-meta>span:last-child { max-width:100%; text-align:left; }
+}

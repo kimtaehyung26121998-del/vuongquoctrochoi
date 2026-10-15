@@ -37,7 +37,7 @@ export default function App(){
   if(mode==='castle'&&isUnlocked(progress,'castle'))return <AdventureStage config={BOSS_STAGE} onExit={toMap} onComplete={finishBoss} questionFactory={drawBoss}/>
   if(mode==='legacy')return <><button className="return-menu" onClick={toMap}>← Bản đồ phiêu lưu</button><LegacyApp questionFactory={drawPractice}/></>
   return <main className="world-map">
-    <header className="map-header"><div><span>VƯƠNG QUỐC TOÁN HỌC</span><h1>Bản đồ phiêu lưu</h1><p>Từ khu rừng xanh đến lâu đài phép thuật. Mỗi hành trình mở ra một vùng đất mới.</p></div><img src="/assets/mascot/owl_cheer.png" alt="Cú mèo dẫn đường"/></header>
+    <header className="map-header"><div><span>VƯƠNG QUỐC TOÁN HỌC</span><h1>Bản đồ phiêu lưu</h1><p>Từ khu rừng xanh đến lâu đài phép thuật. Mỗi hành trình mở ra một vùng đất mới.</p></div><img src="/assets/mascot/robot_guide.png" alt="Robot dẫn đường"/></header>
     <ol className="world-route">{ADVENTURE_STAGES.map(stage=>{
       const unlocked=isUnlocked(progress,stage.id),result=progress.completed[stage.id]
       const status=!unlocked?'Đang khóa':result?'Đã hoàn thành':stage.ready?'Sẵn sàng khám phá':'Đã mở khóa · Đang chuẩn bị'

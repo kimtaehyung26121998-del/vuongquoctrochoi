@@ -96,7 +96,7 @@ export default function App({questionFactory}:{questionFactory?:()=>Question[]}=
   return <div className="site">
     <header className="topbar">
       <button className="brand" type="button" onClick={()=>setScreen('home')}>
-        <img src="/assets/mascot/owl_happy.png" alt="Cú mèo giáo sư" />
+        <img src="/assets/mascot/robot_guide.png" alt="Robot hướng dẫn" />
         <span>VƯƠNG QUỐC <strong>TOÁN HỌC</strong><small>Webcam Adventure · Lớp 2</small></span>
       </button>
       <div className="header-right">
@@ -115,7 +115,7 @@ export default function App({questionFactory}:{questionFactory?:()=>Question[]}=
             <button className="btn secondary" type="button" onClick={begin}>Chơi 12 câu toán</button>
           </div><p className="footnote">Camera xử lý tại máy. Không gửi hoặc lưu video học sinh.</p>
         </div>
-        <img className="hero-owl" src="/assets/mascot/owl_cheer.png" alt="Cú mèo cổ vũ" />
+        <img className="hero-owl" src="/assets/mascot/robot_cheer.png" alt="Robot cổ vũ" />
       </section>
       <h2>5 tư thế điều khiển trò chơi</h2>
       <div className="poses-gallery">{POSE_IMAGES.map(item=><div key={item.pose} className="pose-tile"><img src={item.asset} alt={POSE_NAMES[item.pose]}/><p>{POSE_NAMES[item.pose]}</p></div>)}</div>

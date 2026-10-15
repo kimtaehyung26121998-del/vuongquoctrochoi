@@ -1,5 +1,7 @@
 # BÀN GIAO NGỮ CẢNH TỪ CUỘC CHAT CHATGPT SANG CODEX
 
+> **Đọc bản cập nhật mới nhất trước:** [SESSION_HANDOFF_2026-10-15.md](SESSION_HANDOFF_2026-10-15.md). Đã hoàn thành bốn màn và tải đủ mã lên GitHub `kimtaehyung26121998-del/vuongquoctrochoi`; Vercel đang chờ người dùng kết nối. Bản cập nhật ghi rõ nhận diện D mới nhất, kiểm thử, cấu hình giao diện và khác biệt Git local/remote. Nội dung dưới đây là bàn giao ban đầu.
+
 ## Người dùng muốn gì?
 
 Xây một game tương tác Toán lớp 2 với bộ câu hỏi có phương án A/B/C/D. Học sinh không chỉ bấm chuột: camera laptop nhận biết tư thế cơ thể tương ứng với đáp án. Dùng VS Code, phát triển bằng React + TypeScript + Vite, deploy Vercel.
