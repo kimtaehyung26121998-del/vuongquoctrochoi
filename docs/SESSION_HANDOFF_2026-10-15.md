@@ -1,5 +1,18 @@
 # Bàn giao trạng thái hiện tại — 15/10/2026
 
+> **Cập nhật mới nhất: đã triển khai Vercel thành công.** Production:
+> https://vuongquoctrochoi.vercel.app — commit
+> `3104b3054c502a55b102c26642e19e062b5a091d` trên GitHub đúng
+> `kimtaehyung26121998-del/vuongquoctrochoi`. Vercel báo success;
+> HTML phục vụ `index-CN-50uHs.js` và `index-yMY8QVQX.css`.
+> Nhạc Boss mới `04_lau_dai_boss_violet.ogg` trả HTTP 200, 723785 byte.
+> Đã đưa lên toàn bộ robot/thiên thần, hoạt ảnh cầm dụng cụ, bố cục lớn
+> và nhạc Boss Violet Castle 132 BPM. Build và 16 bộ test đạt.
+> Push bằng checkout riêng tại
+> `C:\Users\LENOVO\AppData\Local\Temp\vuongquoctrochoi-publish-20261015`,
+> giữ lịch sử remote. Git của workspace gốc vẫn chưa đồng bộ metadata;
+> không force-push/reset. Các phần “chưa triển khai” dưới đây là lịch sử cũ.
+
 Đọc file này cùng `AGENTS.md` và `TECHNICAL_SPEC.md` trước khi tiếp tục. Các ghi chú lịch sử khác có thể mô tả hành vi cũ; ưu tiên trạng thái dưới đây.
 
 ## Công việc tiếp theo

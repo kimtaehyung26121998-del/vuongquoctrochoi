@@ -1,6 +1,7 @@
 import { memo, useMemo, type CSSProperties } from 'react'
 import { bossFeedbackText, getBossProgress, type BossAttempt, type BossPhase } from './bossModel'
 import './bossCastle.css'
+import WorldAtmosphere from '../../adventure/WorldAtmosphere'
 
 export interface BossCastleSceneProps {
   /** Read-only state supplied by the existing shared Game Engine. */
@@ -40,6 +41,7 @@ function BossCastleSceneInner({
       data-boss-hits={progress.hits}
       style={arenaStyle}
     >
+      <WorldAtmosphere/>
       <div className="mk-boss__stars" aria-hidden="true" />
       <header className="mk-boss__heading">
         <div>

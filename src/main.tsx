@@ -8,6 +8,7 @@ import './answer-visibility.css'
 import './adventure/story-effects.css'
 import './game-layout.css'
 import './adventure/work-sprites.css'
+import './crystal-kingdom.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode><App /></React.StrictMode>,

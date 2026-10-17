@@ -9,15 +9,15 @@ const {default:Treasure}=await import(loadUrl('src/stages/treasure/TreasureIslan
 const render=(Component,props)=>renderToStaticMarkup(React.createElement(Component,props))
 const base={phase:'answering',index:0,results:[],paused:false,cameraCorrections:0}
 let html=render(Rainbow,{state:base,config:RAINBOW_STAGE})
-assert.ok(html.includes('angel-cheering')&&html.includes('angel_cheer.png'))
+assert.ok(!/angel|Thiên thần|thiên thần/.test(html))
 assert.ok(!html.includes('angel-magic-trail'))
 assert.ok(html.includes('alt="Robot qua cầu vồng"'),'Robot vẫn là người đi qua cầu')
-assert.ok(html.includes('sky-helper'),'Thiên thần đứng riêng để hỗ trợ')
+assert.ok(!html.includes('sky-helper'))
 for(const kind of ['correct','wrong','unanswered']){
   html=render(Rainbow,{state:{...base,phase:'feedback',results:[{kind,choice:kind==='unanswered'?null:'A',source:'manual'}]},config:RAINBOW_STAGE})
-  assert.equal(html.includes('angel-magic-trail'),kind==='correct')
+  assert.ok(!/angel|Thiên thần|thiên thần/.test(html))
   assert.equal(html.includes('segment-awakening'),kind==='correct')
-  assert.equal(html.includes('angel_guide.png'),kind==='correct')
+  assert.equal(html.includes('sky-particles'),kind==='correct')
 }
 const outcome=(round,isCorrect=true)=>({questionId:'test'+round,round,isCorrect,choice:'A'})
 for(const round of [0,1,2]){
@@ -34,4 +34,4 @@ for(const round of [0,1,2]){
 html=render(Treasure,{round:2,phase:'answering',outcomes:[outcome(0),outcome(1)],compact:true})
 assert.ok(html.includes('held-key'),'Câu 3 robot giữ chìa khóa đã đào ở câu 2')
 assert.ok(!html.includes('chest_open.png'),'Chưa đúng câu 3 thì rương còn đóng')
-console.log('PASS: thiên thần cổ vũ/hóa phép theo phase; robot chỉ đào khi đúng, giữ chìa khóa qua câu 3 và dùng mở rương.')
+console.log('PASS: Rainbow without angel; correct-answer effects and treasure animations preserved.')

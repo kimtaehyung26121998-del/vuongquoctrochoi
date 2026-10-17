@@ -1,0 +1,358 @@
+/* Hành trình pha lê — lớp trình bày, không thay đổi luật hoặc camera. */
+:root{--kingdom-ink:#1e304a;--kingdom-cream:#fffdf5;--kingdom-gold:#ffdf8c;--kingdom-night:#121f38;color-scheme:light}
+html,body{margin:0;height:auto;min-height:100%;overflow:auto;overscroll-behavior:auto;background:#121f38}
+button,input{font:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #ffdf8c;outline-offset:4px}
+button{touch-action:manipulation}
+#root{zoom:1;height:auto;min-height:100dvh;overflow:visible}
+#root .forest-app{--world-accent:#99e7be;--world-glow:#236b62;max-width:none;height:100dvh;min-height:0;padding:14px 20px 18px;display:grid;grid-template-rows:66px minmax(0,1fr);gap:14px;overflow:hidden;background:radial-gradient(ellipse at 17% 0%,var(--world-glow),transparent 55%),#121f38;color:#e8f0fa}
+#root .forest-app[data-stage=rainbow]{--world-accent:#d1baff;--world-glow:#454071}
+#root .forest-app[data-stage=island]{--world-accent:#a1e8e4;--world-glow:#246772}
+#root .forest-app[data-stage=castle]{--world-accent:#f1bcf6;--world-glow:#4b3269}
+#root .forest-app[hidden]{display:none}
+#root .forest-header{height:auto;min-height:0;padding:0 2px 10px;margin:0;gap:18px;border-bottom:1px solid #c9d9ff24}
+#root .forest-header h1{font-size:27px;line-height:1.2;font-weight:900;letter-spacing:-.04em;color:#fffaf0;margin:4px 0 0}
+#root .forest-header .forest-eyebrow{font-size:9px;color:var(--world-accent);letter-spacing:.17em}
+#root .forest-back{min-height:42px;border:1px solid #cbdfff38;background:#ffffff0b;color:#edf4ff;box-shadow:inset 0 1px #ffffff0d;border-radius:14px;font-size:12px;padding:10px 14px;transition:background .18s,transform .18s}
+#root .forest-back:hover{background:#ffffff19;transform:translateY(-1px)}
+#root .forest-score{margin-left:0;padding:5px 14px 5px 8px;gap:7px;min-width:100px;border-radius:16px;background:#ffdf8c10;border:1px solid #ffdf8c3d;font-size:28px;color:#ffe5a5;font-variant-numeric:tabular-nums}
+#root .forest-score img{width:30px;height:34px;filter:drop-shadow(0 2px 5px #ffca4c48)}
+#root .forest-score small{font-size:11px;color:#e9cf9c}
+.journey-trail{display:flex;align-items:center;gap:20px;margin-left:auto;padding:0 8px}
+.journey-stop{position:relative;display:flex;align-items:center;gap:5px;color:#a9b6cf;font-size:10px;font-weight:900;opacity:.4}
+.journey-stop:not(:last-child):after{content:'';position:absolute;left:calc(100% + 4px);width:12px;top:50%;border-top:2px dotted #c4d2ed64}
+.journey-stop img{width:23px;height:32px;object-fit:contain;filter:grayscale(.8)}
+.journey-current{opacity:1;color:#fff5d5}
+.journey-current img{filter:drop-shadow(0 0 8px var(--world-accent));transform:translateY(-2px)}
+.journey-passed{opacity:.85;color:var(--world-accent)}
+.journey-passed img{filter:none}
+#root .forest-layout{height:auto;min-height:0;overflow:hidden;grid-template-columns:minmax(0,1fr) 292px;gap:16px}
+#root .forest-app .forest-main{height:auto;min-height:0;grid-template-rows:minmax(0,1fr) 326px;gap:14px}
+#root .forest-app .forest-scene,#root .forest-app .rainbow-scene,#root .forest-app .treasure-island--compact,#root .forest-app .mk-boss--compact{min-height:0;border-radius:25px;border:1px solid #f4ffe66b;box-shadow:0 12px 30px #060e2440,inset 0 0 0 5px #ffffff0e;overflow:hidden}
+#root .forest-scene{background:#29796f url('/assets/worlds/forest.svg') center/cover no-repeat}
+#root .rainbow-scene{background:#b3a2de url('/assets/worlds/sky.svg') center/cover no-repeat!important}
+#root .scene-caption,#root .sky-caption{top:16px;left:18px;right:18px;gap:12px;align-items:center;font-size:11px;letter-spacing:.12em;text-shadow:none;color:#fff8de}
+#root .scene-caption b,#root .sky-caption b{padding:9px 13px;border:1px solid #ffffff3d;background:#163c43cf;border-radius:12px;box-shadow:0 3px 10px #0b2a3426;backdrop-filter:blur(8px)}
+#root .sky-caption b{background:#4b4274d9}
+#root .scene-caption span,#root .sky-caption span{padding:8px 13px;border:1px solid #fff8d3;background:#fff7de;color:#34485b;border-radius:12px;font-size:12px;font-weight:900;letter-spacing:0;box-shadow:0 4px 0 #16344626}
+#root .river{height:37%;left:19%;width:64%;border-radius:50% 50% 0 0;background:linear-gradient(160deg,#8de7d9,#37b3bc 70%,#1c8faa);box-shadow:inset 0 8px #c2fff05c}
+#root .bank{bottom:10%;height:20%;background:linear-gradient(#a6d385 0 10%,#519776 11% 25%,#646147 26%);box-shadow:0 10px 0 #163e4a24;border-top:3px solid #d0e8aa}
+#root .bridge{bottom:27%;height:26px}
+#root .forest-scene .traveler{bottom:31%}
+#root .forest-app .traveler>img{height:clamp(115px,19vh,180px);width:clamp(90px,11vw,145px)}
+#root .forest-goal{bottom:31%;height:27%;right:3.5%;filter:drop-shadow(0 0 18px #fff4a6)}
+#root .owl-dialog,#root .sky-dialog{left:4%;right:4%;bottom:12px;padding:9px 15px;border-radius:14px;border:1px solid #fffdf2;background:#fffbeaef;color:#314a54;font-size:13px;font-weight:800;box-shadow:0 5px 16px #10394226;backdrop-filter:blur(8px)}
+#root .floating-island{background:linear-gradient(#d4efbd 0 12%,#82bcab 13% 26%,#9387b3 27% 60%,#615784 61%);border-radius:50%;filter:drop-shadow(0 12px 8px #65558244)}
+#root .sky-cloud{opacity:.5}
+#root .rainbow-path .segment-sleeping{opacity:.2;filter:none}
+#root .rainbow-path .segment-lit{filter:drop-shadow(0 2px 4px #fff9bcb0)}
+#root .sky-traveler>img{width:12%;height:35%;filter:drop-shadow(0 8px 6px #4d426f55)}
+#root .sky-wand{opacity:.75;right:14%;top:18%;width:5%}
+#root .sky-gem{right:4%;filter:drop-shadow(0 0 20px #fff9d9)}
+.world-atmosphere{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;border-radius:inherit}
+.world-light{position:absolute;inset:0;background:linear-gradient(120deg,#ffedb817,transparent 45%,#e5c8ff12);mix-blend-mode:screen}
+.world-vignette{position:absolute;inset:0;box-shadow:inset 0 0 90px #0a29402b;pointer-events:none}
+.world-atmosphere i{position:absolute;left:calc(8% + var(--mote)*9%);top:40%;width:4px;height:4px;border-radius:50%;background:#fff2ba;box-shadow:0 0 9px 3px #ffefa334;opacity:.55;animation:kingdom-drift 7s calc(var(--mote)*-.8s) ease-in-out infinite alternate}
+.world-atmosphere i:nth-child(3n){top:63%}.world-atmosphere i:nth-child(3n + 1){top:25%}
+@keyframes kingdom-drift{to{transform:translate(12px,-22px);opacity:.15}}
+
+/* Bàn phép tính: trọng tâm thị giác và các khối đáp án theo màu cố định. */
+#root .forest-app .forest-question{position:relative;min-height:0;padding:14px 20px 12px;border:1px solid #ffffff;border-radius:24px;background:linear-gradient(130deg,#fffdf6,#f6f6ed);color:#293c50;box-shadow:0 10px 24px #0712262b,inset 0 3px #fff;overflow:auto;scrollbar-gutter:auto;overflow-anchor:none}
+#root .forest-app .forest-question-meta{min-height:24px;gap:10px;align-items:center;font-size:11px;color:#63748a;line-height:1.3}
+#root .forest-question-meta>span:first-child{font-weight:900;letter-spacing:.08em}
+#root .forest-question>.forest-question-meta>span:last-child{border-radius:9px;padding:5px 10px;background:#e8edf0;color:#40556b;font-size:11px;max-width:75%;text-align:right}
+#root [data-phase=answering] .forest-question>.forest-question-meta>span:last-child{background:#e2f3e9;color:#256950}
+#root [data-urgent=true] .forest-question>.forest-question-meta>span:last-child{background:#fff0da;color:#865214;border:1px solid #e9bb71}
+#root .forest-app .forest-question h2{font-size:clamp(38px,3.8vw,58px);font-weight:900;letter-spacing:-.045em;line-height:1.13;color:#233950;margin:5px 0 13px;font-variant-numeric:tabular-nums}
+#root .forest-app .forest-answers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding-bottom:7px}
+#root .forest-app .forest-answer{--answer-fill:#ffe6eb;--answer-edge:#e4a9b7;--answer-badge:#c85879;display:grid;grid-template-columns:35px minmax(0,1fr) 52px;align-items:center;min-height:100px;padding:8px 10px;gap:7px;overflow:hidden;background:linear-gradient(150deg,#ffffffbc,var(--answer-fill));border:2px solid var(--answer-edge);border-radius:18px;box-shadow:0 5px 0 var(--answer-edge),inset 0 2px 0 #ffffffc9;color:#233950;font-size:clamp(33px,3.4vw,48px);font-weight:900;transition:transform .15s,box-shadow .15s,border-color .15s;isolation:isolate}
+#root .forest-answer:nth-child(2){--answer-fill:#fff0c7;--answer-edge:#dcc181;--answer-badge:#9c752c}
+#root .forest-answer:nth-child(3){--answer-fill:#dfedff;--answer-edge:#9dbddd;--answer-badge:#4074b2}
+#root .forest-answer:nth-child(4){--answer-fill:#dcf4e9;--answer-edge:#9acbb4;--answer-badge:#31816b}
+#root .forest-app .forest-answer b{display:grid;place-items:center;width:35px;height:39px;border-radius:11px;background:var(--answer-badge);box-shadow:inset 0 2px #ffffff24;color:white;font-size:22px;line-height:1;text-shadow:0 1px #14233f22}
+#root .forest-app .forest-answer span{min-width:0;text-align:center;overflow-wrap:normal;white-space:nowrap}
+#root .forest-app .forest-answer img{grid-column:auto;width:52px;height:81px;margin:0;object-fit:contain;filter:drop-shadow(0 3px 2px #364a6024)}
+#root .forest-answer:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 0 var(--answer-edge),0 10px 20px #11283c15}
+#root .forest-answer:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--answer-edge)}
+#root .forest-answer:disabled{opacity:1;cursor:default}
+#root [data-phase=thinking] .forest-answer{filter:saturate(.65)}
+#root .forest-app .forest-answer.pose-active{outline:3px solid #eab637;outline-offset:3px;border-color:#af851f;box-shadow:0 5px 0 #cda54d,0 0 0 6px #ffda6533}
+#root .forest-app .forest-answer.answer-correct{background:linear-gradient(145deg,#f0ffe8,#bceecf);border-color:#3c9c76;box-shadow:0 5px 0 #3c9c76,0 0 0 3px #b5e4b84d}
+#root .forest-app .forest-answer.answer-correct:after{content:'✓';position:absolute;right:5px;top:2px;color:#227c57;font-size:17px;font-weight:900}
+#root .forest-app .forest-answer.answer-retry{border-color:#c98c47;box-shadow:0 5px 0 #c98c47;background:#fff0dd}
+#root .forest-app .forest-feedback{min-height:68px;height:68px;padding:9px 0 0;gap:4px 12px;align-content:flex-start;align-items:center;font-size:12px;color:#596c7e;line-height:1.4;overflow:auto;scrollbar-gutter:auto}
+#root .forest-app .forest-feedback strong{color:#355d53;font-size:13px;flex-basis:auto}
+#root .forest-feedback.positive strong{color:#20734b}
+#root .forest-feedback .btn,#root .rainbow-feedback-actions .btn{padding:6px 9px;font-size:10px;box-shadow:none;margin:0}
+#root .rainbow-feedback-actions{gap:6px;margin-left:auto;flex-wrap:wrap}
+#root .forest-intro{padding:4px 0}
+#root .forest-app .forest-intro h2{font-size:30px;line-height:1.22;letter-spacing:-.035em;margin:7px 0 9px;max-width:800px}
+#root .forest-app .forest-intro p{font-size:14px;line-height:1.6;margin:7px 0;max-width:850px;color:#596d7e}
+#root .forest-intro>.forest-eyebrow,#root .forest-finish .forest-eyebrow{color:#48816f;font-size:10px}
+#root .forest-app .forest-intro .rainbow-instructions{font-size:12px!important;color:#687888}
+#root .forest-app .btn.primary{background:linear-gradient(145deg,#ffe8a6,#ffd178);color:#3c3b36;border:1px solid #efc267;border-radius:13px;padding:12px 19px;box-shadow:0 5px 0 #c79846,inset 0 2px #fff4ce;transition:transform .16s,box-shadow .16s;font-size:14px}
+#root .forest-app .btn.primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 #c79846}
+#root .forest-app .btn.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #c79846}
+#root .forest-question .btn.secondary{background:#e9efed;border:1px solid #d1ddd8;color:#42645d;border-radius:10px}
+#root .forest-app .forest-finish{min-height:0;height:100%;gap:22px;align-items:center}
+#root .forest-app .forest-finish>img{width:110px;height:145px;filter:drop-shadow(0 8px 8px #c5975933)}
+#root .forest-app .forest-finish h2{font-size:30px;margin:6px 0;color:#2b4e4b}
+#root .forest-app .forest-finish p{font-size:13px;line-height:1.5;margin:7px 0;color:#566d72}
+#root .rainbow-result-stars img{width:27px;height:27px}
+
+/* Khung webcam và gợi ý tư thế có độ tương phản riêng với cảnh. */
+#root .forest-app .forest-sidebar{min-height:0;overflow:auto;scrollbar-gutter:auto;padding:0 2px 5px 0;gap:12px;align-content:start;scrollbar-width:thin;scrollbar-color:#61738d #182941}
+#root .forest-app .forest-camera{flex-shrink:0;padding:14px;border-radius:22px;border:1px solid #9bb7d339;background:linear-gradient(155deg,#263f55,#1b2c45);box-shadow:inset 0 1px #ffffff12,0 8px 20px #07142526}
+#root .forest-camera .forest-question-meta{font-size:10px;color:#dfebf7;letter-spacing:.05em}
+#root .forest-camera .forest-question-meta b:before{content:'';display:inline-block;width:7px;height:7px;margin-right:7px;border:2px solid #9bb5cb;border-radius:50%;vertical-align:middle}
+#root .forest-camera .status{font-size:10px;color:#b4c5d9;letter-spacing:0}
+#root .forest-camera .status.running{color:#a2edc5}
+#root .forest-camera .status.error{color:#ffe1ac}
+#root .forest-app .forest-camera .video-wrap{position:relative;aspect-ratio:16/10;margin:12px 0;border:1px solid #9ec5d850;border-radius:15px;background:radial-gradient(ellipse at 50% 70%,#2e4a61,#142239);box-shadow:inset 0 0 25px #0819294d}
+#root .forest-camera .video-wrap:after{content:'';position:absolute;inset:9px;z-index:3;pointer-events:none;border:1px solid #c5e4e54d;border-radius:9px;clip-path:polygon(0 0,15% 0,15% 2px,2px 2px,2px 18%,0 18%,0 82%,2px 82%,2px calc(100% - 2px),15% calc(100% - 2px),15% 100%,85% 100%,85% calc(100% - 2px),calc(100% - 2px) calc(100% - 2px),calc(100% - 2px) 82%,100% 82%,100% 18%,calc(100% - 2px) 18%,calc(100% - 2px) 2px,85% 2px,85% 0,100% 0,100% 100%,0 100%)}
+#root .forest-camera .video-placeholder img{height:47px;filter:drop-shadow(0 3px 5px #020d2740)}
+#root .forest-camera .video-placeholder p{font-size:11px;line-height:1.5;color:#bed1e1;padding:0 24px}
+#root .forest-app .forest-camera .pose-detected{height:38px;min-height:38px;border-radius:11px;background:#0e213480;border:1px solid #a6c4d320;padding:3px 12px}
+#root .forest-camera .pose-detected span{font-size:10px;letter-spacing:.1em;color:#b1c8dc}
+#root .forest-camera .pose-detected strong{color:var(--world-accent);font-size:25px;line-height:1.2}
+#root .forest-camera .hold-head{margin:12px 0 6px;font-size:10px;color:#c0d4e2;min-height:15px}
+#root .forest-camera .hold-head b{color:var(--world-accent);font-variant-numeric:tabular-nums}
+#root .forest-camera .progress-track{height:8px;background:#101f33;border:1px solid #96b6c92b;box-shadow:inset 0 2px #020d2522}
+#root .forest-camera .answer-hold-fill{background:linear-gradient(90deg,#6bd9b3,#d8f0ab)}
+#root .forest-app .forest-camera .camera-message{height:55px;min-height:55px;margin:10px 0;color:#c1d3df;font-size:11px;line-height:1.5;overflow:auto;scrollbar-width:thin;scrollbar-color:#6f8298 transparent}
+#root .forest-camera .forest-note{color:#e1cfaa;font-size:10px!important}
+#root .forest-app .forest-camera .btn{width:100%;padding:9px 11px;border-radius:11px;background:#def0e7;border:1px solid #a7d3c3;color:#244f45;font-size:11px;box-shadow:0 3px 0 #0d203b52}
+#root .forest-app .forest-pose-guide{order:1;flex-shrink:0;padding:13px 14px;border-radius:20px;background:#21344c;border:1px solid #aac1dc26;color:#f0f3ef}
+#root .forest-pose-guide h3{font-size:13px;letter-spacing:-.02em;margin:0 0 10px;color:#f4eace}
+#root .forest-pose-guide>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#root .forest-pose-guide figure{position:relative;width:auto;border-radius:11px;padding:6px 2px 4px;background:#f9e9eb;border:1px solid #ffffff29;color:#814959}
+#root .forest-pose-guide figure:nth-child(2){background:#f8edcb;color:#846733}
+#root .forest-pose-guide figure:nth-child(3){background:#e0ebfa;color:#42628a}
+#root .forest-pose-guide figure:nth-child(4){background:#def0e6;color:#40705e}
+#root .forest-app .forest-pose-guide img{width:43px;max-width:100%;height:64px}
+#root .forest-app .forest-pose-guide figcaption{font-size:15px;font-weight:900}
+#root .forest-app .forest-pose-guide p{font-size:10px;line-height:1.7;color:#b9ccdb;margin:8px 0 0}
+#root .forest-app .forest-tools{order:2;gap:9px;flex-shrink:0;min-height:34px}
+#root .forest-tools .btn.secondary{font-size:10px;background:#2d435b;border:1px solid #9bbad12b;color:#d6e4ef;padding:9px 12px;border-radius:10px}
+#root .forest-tools label{font-size:10px;color:#bacbdd;gap:4px;cursor:pointer}
+#root .forest-tools input{accent-color:#a5e5c2;width:14px;height:14px}
+#root .forest-sidebar>.forest-note{order:3;color:#9dafc3;font-size:10px!important;line-height:1.6;padding:0 4px}
+
+/* Hai thế giới có engine cảnh riêng vẫn giữ toàn bộ vật phẩm và phản hồi. */
+#root .treasure-island--compact{background:#54b8bf url('/assets/worlds/island.svg') center/cover no-repeat}
+#root .treasure-island__sky,#root .treasure-island__sea{opacity:0}
+#root .treasure-island--compact .treasure-island__header{padding:16px 20px 0}
+#root .treasure-island__header>div:first-child{background:#fffbe5e8;border:1px solid #fff5ce;border-radius:14px;padding:9px 13px;box-shadow:0 4px 10px #16485215}
+#root .treasure-island__eyebrow{font-size:8px;letter-spacing:.12em;color:#5e8273}
+#root .treasure-island--compact .treasure-island__header h2{font-size:21px;margin:3px 0 4px;color:#255d5a}
+#root .treasure-island__header p{font-size:10px;color:#52756f}
+#root .treasure-island__counter{border-radius:14px;border-color:#fff6d2;background:#fff7db;box-shadow:0 4px 0 #327f8126;padding:8px 12px}
+#root .treasure-island__counter strong{font-size:24px}
+#root .treasure-island__counter span{font-size:9px}
+#root .forest-app .treasure-island--compact .treasure-island__playfield{min-height:80px;--treasure-owl-width:clamp(70px,7vw,106px);--treasure-chest-width:clamp(80px,8vw,120px)}
+#root .treasure-island__landscape{filter:drop-shadow(0 7px 6px #316f6629)}
+#root .treasure-island__inventory{padding:0 18px;gap:9px}
+#root .treasure-island--compact .treasure-island__objective{padding:8px 10px;gap:9px;border-radius:13px;border:1px solid #fff9df;background:#fffcf0ed;box-shadow:0 4px 0 #2168791f}
+#root .treasure-island--compact .treasure-island__objective--current{border:2px solid #d9a64f;background:#fff3d1;padding:7px 9px}
+#root .treasure-island--compact .treasure-island__objective--done{background:#e1f5d8;border-color:#83bf9c}
+#root .treasure-island__objective-copy b{font-size:11px}
+#root .treasure-island__objective-copy span{font-size:9px}
+#root .treasure-island__journey-note{padding:10px 20px 12px;color:#f1fff2;text-shadow:0 1px 3px #22516e;font-size:9px}
+#root .boss-app .mk-boss--compact{padding:16px 20px 12px;background:#302759 url('/assets/worlds/castle.svg') center/cover no-repeat;border-color:#dcc6f180}
+#root .mk-boss__stars{opacity:.3}
+#root .mk-boss__heading h2{color:#fff1ce;text-shadow:0 3px #342759;font-size:25px;letter-spacing:.02em}
+#root .mk-boss__eyebrow{color:#d9c8ed}
+#root .mk-boss__heading p{color:#e3d6ed}
+#root .mk-boss__round-tag{border-radius:14px;border:1px solid #dfb6ec9c;background:#362557de;box-shadow:0 4px 0 #100c2b26}
+#root .boss-app .mk-boss--compact .mk-boss__health{max-width:330px;margin-top:10px;background:#201936b8;padding:7px 11px;border:1px solid #dfc6ed40;border-radius:12px}
+#root .mk-boss__health-copy{font-size:9px;color:#f2dcf4}
+#root .mk-boss__health-track{height:12px;border:2px solid #c7a1e4}
+#root .mk-boss__health-fill{background:linear-gradient(90deg,#d987d1,#f0bdca,#ffe5ac);box-shadow:none}
+#root .boss-app .mk-boss--compact .mk-boss__arena{min-height:90px;overflow:visible}
+#root .mk-boss__castle{display:none}
+#root .mk-boss__portal{filter:none;opacity:.5}
+#root .mk-boss__floor{height:24px;bottom:3px;left:10%;right:10%;border-color:#e3c0f073;background:#d9bbf31c}
+#root .boss-app .mk-boss--compact .mk-boss__hero{left:9%;bottom:14px;width:18%}
+#root .boss-app .mk-boss--compact .mk-boss__monster{right:8%;bottom:12px;width:22%}
+#root .boss-app .mk-boss--compact .mk-boss__hero img{height:clamp(85px,13vh,145px)}
+#root .boss-app .mk-boss--compact .mk-boss__monster img{height:clamp(100px,16vh,165px)}
+#root .mk-boss__hero-label,#root .mk-boss__monster-label{background:#35234bd9;border-color:#d7b3de80;font-size:9px;padding:4px 10px}
+#root .boss-app .mk-boss--compact .mk-boss__footer{background:#251d3aab;padding:6px 10px;border-radius:9px;font-size:9px;color:#e5d9ed}
+#root .mk-boss__magic-notes{font-size:13px;top:12px}
+
+/* Bản đồ mở đầu như một bộ sưu tập bốn thế giới. */
+#root .world-map{position:relative;isolation:isolate;height:auto;min-height:100dvh;max-width:none;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,5vh,64px) clamp(24px,5vw,90px);background:radial-gradient(ellipse at 15% 15%,#356b6b73,transparent 50%),radial-gradient(ellipse at 90% 85%,#73619740,transparent 45%),#14243a;color:#fff8e5}
+#root .world-map:before{content:'';position:absolute;z-index:-1;inset:0;opacity:.2;background-image:radial-gradient(circle,#d9f6ed 1px,transparent 1.5px);background-size:47px 47px;mask-image:linear-gradient(#000,transparent 75%)}
+#root .world-map .map-header{position:relative;margin:0 0 30px;gap:30px;padding:0}
+#root .map-header>div>span{font-size:10px;letter-spacing:.28em;color:#b2e6d0}
+#root .world-map .map-header h1{font-size:clamp(36px,4.3vw,65px);font-weight:900;letter-spacing:-.055em;line-height:1.12;margin:13px 0 15px;color:#fff5da}
+#root .map-header p{font-size:15px;line-height:1.75;max-width:650px;color:#b9d0da}
+#root .world-map .map-header>img{width:135px;height:160px;object-fit:contain;filter:drop-shadow(0 14px 12px #0a183c60);transform:rotate(6deg)}
+.map-collection{display:flex;align-items:center;gap:9px;border:1px solid #d8edda30;background:#ffffff08;padding:9px 13px;border-radius:13px;color:#e7e5d5;font-size:11px;font-weight:800;width:fit-content;margin-top:15px}
+.map-collection img{width:18px;height:26px;object-fit:contain}
+.map-collection span{margin-left:5px}
+#root .world-route{position:relative;gap:20px;align-content:center;padding:0}
+#root .world-route:before{content:'';position:absolute;left:8%;right:8%;top:40%;height:1px;background:#c2ded13d;z-index:-1}
+#root .world-route li:after{display:none}
+#root .map-stage{position:relative;border:1px solid #d7efe15c;border-radius:24px;box-shadow:0 12px 25px #060e2552,inset 0 1px #fff;background:#fffbef;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+#root .map-stage:hover:not(:disabled){transform:translateY(-8px) rotate(-.6deg);border-color:#ffe3a0;box-shadow:0 20px 32px #020c2666,0 0 0 3px #ffe3a01a}
+#root .map-stage:disabled{opacity:1;color:#49606b}
+#root .map-stage-picture{height:clamp(150px,21vh,250px);background:#37597a}
+#root .map-stage-picture:after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 55%,#182d493d);pointer-events:none}
+#root .map-stage-picture>img:first-child{object-fit:cover;object-position:center;transition:transform .5s}
+#root .map-stage:hover:not(:disabled) .map-stage-picture>img:first-child{transform:scale(1.05)}
+#root .locked .map-stage-picture>img:first-child{filter:saturate(.55) brightness(.87)}
+#root .map-number{z-index:1;left:12px;top:12px;width:33px;height:33px;border-radius:11px;background:#fff8e9ef;color:#3d5262;font-size:12px;box-shadow:0 3px 0 #152c4026}
+#root .map-stage-picture .map-gem{right:10px;bottom:-15px;width:53px;height:75px;z-index:2;filter:drop-shadow(0 5px 8px #0a243f44)}
+#root .map-stage-copy{position:relative;min-height:145px;padding:23px 17px 18px}
+#root .map-stage-copy small{font-size:9px;font-weight:900;letter-spacing:.06em;color:#687b81;display:inline-flex;align-items:center;gap:6px}
+#root .unlocked .map-stage-copy small{color:#32745e}
+#root .unlocked .map-stage-copy small:before{content:'';height:6px;width:6px;border-radius:50%;background:#4fa680}
+#root .locked .map-stage-copy small:before{content:'◈';font-size:12px;color:#7d8596}
+#root .map-stage-copy h2{font-size:clamp(19px,1.85vw,28px);line-height:1.2;letter-spacing:-.035em;color:#2c4756;margin:8px 0 11px}
+#root .map-stage-copy p{font-size:11px;line-height:1.6;color:#708084;margin:0}
+#root .completed .map-stage{border-color:#e8c47a;box-shadow:0 12px 28px #07112655,0 0 0 2px #f8de9926}
+#root .map-footer{margin-top:24px;padding:19px 0 0;border-top:1px solid #d0e4ef1c;gap:20px;color:#a5bdcc}
+#root .map-footer p{font-size:10px;line-height:1.7;color:#abc1cf}
+#root .map-footer .btn.secondary{padding:12px 16px;background:#293e54;color:#e2efe9;border:1px solid #a6c4d139;border-radius:13px;font-size:11px;box-shadow:0 4px 0 #091a3038}
+
+/* Chiến thắng và bố cục theo kích thước thực tế của laptop. */
+#root .boss-victory{min-height:100dvh;background:radial-gradient(ellipse at center,#5c4773,#17233e 75%);color:#fff4d8}
+@media(min-width:1700px) and (min-height:900px){
+  #root .forest-app{padding:20px 28px 24px;grid-template-rows:76px minmax(0,1fr);gap:18px}
+  #root .forest-layout{grid-template-columns:minmax(0,1fr) 340px;gap:20px}
+  #root .forest-app .forest-main{grid-template-rows:minmax(0,1fr) 370px;gap:18px}
+  #root .forest-app .forest-question{padding:19px 26px}
+  #root .forest-app .forest-question h2{font-size:62px;margin:8px 0 17px}
+  #root .forest-app .forest-answer{min-height:114px;grid-template-columns:42px minmax(0,1fr) 72px;font-size:54px}
+  #root .forest-app .forest-answer b{width:42px;height:45px;font-size:26px}
+  #root .forest-app .forest-answer img{width:72px;height:94px}
+  #root .forest-app .forest-feedback{font-size:14px;height:80px;min-height:80px}
+  #root .forest-app .forest-camera{padding:17px}
+  #root .forest-app .forest-pose-guide img{height:84px;width:53px}
+  #root .forest-app .forest-intro h2{font-size:36px}
+  #root .forest-app .forest-intro p{font-size:16px}
+}
+@media(max-width:1150px) and (min-width:861px){
+  #root .forest-app{padding:12px 14px 16px}
+  #root .forest-layout{grid-template-columns:minmax(0,1fr) 252px;gap:12px}
+  #root .forest-header{gap:12px}
+  #root .forest-header h1{font-size:23px}
+  .journey-trail{gap:12px;padding:0}
+  .journey-stop span{display:none}
+  .journey-stop img{width:21px}
+  .journey-stop:not(:last-child):after{width:6px}
+  #root .forest-app .forest-question{padding:13px 15px}
+  #root .forest-app .forest-answer{grid-template-columns:28px minmax(0,1fr) 37px;gap:4px;padding:7px;font-size:35px}
+  #root .forest-app .forest-answer b{width:28px;height:34px;font-size:19px}
+  #root .forest-app .forest-answer img{width:37px;height:76px}
+  #root .forest-app .forest-answers{gap:9px}
+  #root .forest-app .forest-intro h2{font-size:27px}
+}
+@media(max-height:740px) and (min-width:861px){
+  #root .forest-app{height:auto;min-height:100dvh;overflow:visible;grid-template-rows:62px auto}
+  #root .forest-layout{overflow:visible;min-height:606px}
+  #root .forest-app .forest-main{grid-template-rows:280px 326px}
+  #root .forest-app .forest-sidebar{max-height:620px}
+}
+@media(max-width:860px){
+  html,body{height:auto;overflow:auto;overscroll-behavior:auto}
+  #root .forest-app{height:auto;min-height:100dvh;overflow:visible;grid-template-rows:auto auto;padding:12px 16px 24px;gap:13px}
+  #root .forest-header{flex-wrap:wrap;gap:10px;padding-bottom:12px}
+  #root .forest-header h1{font-size:24px}
+  #root .forest-header .forest-eyebrow{font-size:8px}
+  .journey-trail{display:none}
+  #root .forest-score{margin-left:auto;font-size:24px;min-width:85px}
+  #root .forest-layout{display:flex;flex-direction:column;overflow:visible;gap:14px}
+  #root .forest-app .forest-main{height:auto;grid-template-rows:360px auto;gap:14px}
+  #root .forest-app .forest-question{overflow:visible;min-height:326px}
+  #root .forest-app .forest-sidebar{display:grid;grid-template-columns:1fr 1fr;overflow:visible;gap:14px;padding:0}
+  #root .forest-camera{grid-row:span 3}
+  #root .forest-pose-guide{align-self:start}
+  #root .forest-tools{align-self:start;grid-column:2}
+  #root .forest-sidebar>.forest-note{grid-column:2}
+  #root .forest-app .forest-question h2{font-size:44px}
+  #root .forest-app .forest-answer{grid-template-columns:29px minmax(0,1fr) 42px;font-size:36px;padding:7px;gap:3px}
+  #root .forest-app .forest-answer b{width:29px;height:35px;font-size:20px}
+  #root .forest-app .forest-answer img{width:42px;height:74px}
+  #root .world-map{padding:30px 24px;overflow:visible}
+  #root .world-route{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  #root .map-stage-picture{height:190px}
+  #root .map-stage-copy{min-height:145px}
+}
+@media(max-width:560px){
+  #root .forest-app{padding:10px 10px 20px}
+  #root .forest-header>div:nth-child(2){order:-1;flex-basis:100%}
+  #root .forest-header h1{font-size:25px}
+  #root .forest-back{font-size:11px;padding:8px 11px;min-height:37px}
+  #root .forest-app .forest-main{grid-template-rows:320px auto;min-height:0}
+  #root .forest-app .forest-question{padding:13px 14px 15px;border-radius:20px}
+  #root .forest-app .forest-question h2{font-size:42px;margin:10px 0 16px}
+  #root .forest-app .forest-answers{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #root .forest-app .forest-answer{min-height:96px;grid-template-columns:29px minmax(0,1fr) 47px;font-size:37px;padding:8px}
+  #root .forest-app .forest-answer img{height:75px;width:47px}
+  #root .forest-app .forest-feedback{height:auto;min-height:74px;padding-top:14px;gap:9px}
+  #root .forest-feedback .rainbow-feedback-actions{margin-left:0}
+  #root .forest-question>.forest-question-meta>span:last-child{font-size:10px;padding:5px 7px;max-width:66%}
+  #root .forest-app .forest-question-meta{flex-wrap:nowrap;font-size:9px}
+  #root .scene-caption,#root .sky-caption{left:10px;right:10px;top:12px;font-size:8px;letter-spacing:.03em;gap:6px}
+  #root .scene-caption b,#root .sky-caption b{padding:8px}
+  #root .scene-caption span,#root .sky-caption span{font-size:10px;padding:7px}
+  #root .owl-dialog,#root .sky-dialog{left:3%;right:3%;bottom:9px;font-size:10px;padding:8px 10px}
+  #root .forest-app .forest-sidebar{display:flex;flex-direction:column;gap:12px}
+  #root .forest-app .forest-pose-guide>div{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #root .forest-app .forest-pose-guide img{height:86px;width:50px}
+  #root .forest-app .forest-camera .video-wrap{aspect-ratio:16/10}
+  #root .forest-app .forest-camera .camera-message{height:auto;min-height:45px}
+  #root .forest-app .forest-intro h2{font-size:27px}
+  #root .forest-app .forest-intro p{font-size:13px}
+  #root .forest-app .forest-finish{flex-direction:column;text-align:center;padding:10px 0}
+  #root .forest-app .forest-finish>img{height:100px;width:85px}
+  #root .forest-app .forest-finish h2{font-size:26px}
+  #root .forest-app .forest-finish .btn{margin-top:6px}
+  #root .treasure-island--compact .treasure-island__header{padding:11px 10px 0;gap:6px}
+  #root .treasure-island__header>div:first-child{padding:7px 8px}
+  #root .treasure-island--compact .treasure-island__header h2{font-size:16px}
+  #root .treasure-island__header p{font-size:9px}
+  #root .treasure-island__counter{padding:7px 8px}
+  #root .treasure-island__counter span{font-size:8px}
+  #root .treasure-island__inventory{padding:0 8px;gap:5px}
+  #root .treasure-island--compact .treasure-island__objective{padding:6px;gap:3px}
+  #root .treasure-island__objective-copy b{font-size:10px}
+  #root .treasure-island__objective-copy span{font-size:8px}
+  #root .treasure-island__journey-note{font-size:8px;padding:8px 12px}
+  #root .boss-app .mk-boss--compact{padding:12px 13px}
+  #root .mk-boss__heading h2{font-size:20px}
+  #root .mk-boss__round-tag{min-width:60px}
+  #root .boss-app .mk-boss--compact .mk-boss__footer{font-size:8px}
+  #root .world-map{padding:30px 16px}
+  #root .world-map .map-header{margin-bottom:22px}
+  #root .world-map .map-header h1{font-size:39px}
+  #root .map-header p{font-size:13px}
+  #root .world-map .map-header>img{display:none}
+  #root .world-route{gap:12px}
+  #root .map-stage{border-radius:18px}
+  #root .map-stage-picture{height:133px}
+  #root .map-stage-picture .map-gem{width:40px;height:56px;right:6px}
+  #root .map-stage-copy{min-height:150px;padding:20px 12px 15px}
+  #root .map-stage-copy h2{font-size:21px}
+  #root .map-stage-copy p{font-size:10px}
+  #root .map-stage-copy small{font-size:8px}
+  #root .map-number{height:27px;width:27px;font-size:10px;left:9px;top:9px;border-radius:8px}
+  #root .map-footer{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  #root .forest-app *,#root .forest-app *:before,#root .forest-app *:after,#root .world-map *,#root .world-map *:before{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+#root .is-paused *,#root .rainbow-paused *{animation-play-state:paused!important}
+#root .skip-motion .world-atmosphere i,#root .rainbow-skip .world-atmosphere i{animation:none!important}
+#root .is-paused .forest-scene:after,#root .rainbow-paused .rainbow-scene:after{content:'Tạm dừng';position:absolute;inset:0;z-index:20;display:grid;place-items:center;border-radius:inherit;background:#12253bc4;backdrop-filter:blur(4px);color:#fff1cd;font-size:28px;font-weight:900;pointer-events:none}
+@media(max-width:380px){
+  #root .forest-app .forest-answer{grid-template-columns:25px minmax(0,1fr) 36px;gap:3px;padding:6px;font-size:32px;min-height:91px}
+  #root .forest-app .forest-answer b{width:25px;height:31px;font-size:18px}
+  #root .forest-app .forest-answer img{width:36px;height:70px}
+  #root .forest-app .forest-answers{gap:10px}
+  #root .forest-app .forest-question{padding:12px}
+  #root .forest-score{padding-right:9px;min-width:79px}
+  #root .scene-caption,#root .sky-caption{font-size:7px}
+}

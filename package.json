@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "test": "node tests/arithmetic-bank.mjs && node tests/pose-bd-regression.mjs && node tests/forest-regression.mjs && node tests/forest-auto-retry.mjs && node tests/rainbow-regression.mjs && node tests/answer-camera-regression.mjs && node tests/treasure-regression.mjs && node tests/boss-regression.mjs && node tests/boss-camera-flow.mjs && node tests/random-gameplay.mjs && node tests/session-progress.mjs && node tests/camera-game-delivery.mjs && node tests/pose-ab-regression.mjs && node tests/pose-abd-boundaries.mjs && node tests/pose-d-natural.mjs && node tests/story-effects.mjs"
+    "test": "node tests/arithmetic-bank.mjs && node tests/pose-bd-regression.mjs && node tests/forest-regression.mjs && node tests/forest-auto-retry.mjs && node tests/rainbow-regression.mjs && node tests/answer-camera-regression.mjs && node tests/treasure-regression.mjs && node tests/boss-regression.mjs && node tests/boss-camera-flow.mjs && node tests/random-gameplay.mjs && node tests/session-progress.mjs && node tests/camera-game-delivery.mjs && node tests/pose-ab-regression.mjs && node tests/pose-abd-boundaries.mjs && node tests/pose-d-natural.mjs && node tests/story-effects.mjs && node tests/kingdom-ui.mjs"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "0.10.21",

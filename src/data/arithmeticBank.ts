@@ -6,25 +6,25 @@ export interface ArithmeticQuestion extends Omit<Question,'stage'> {
 }
 const LETTERS:Choice[]=['A','B','C','D']
 const ADDITIONS:readonly [number,number][]=[
-  [14,15],[12,23],[21,34],[32,16],[43,25],
-  [24,13],[51,27],[62,17],[35,24],[46,12],
-  [13,26],[22,45],[31,28],[42,36],[53,14],
-  [61,18],[72,16],[20,35],[30,47],[40,28],
-  [11,22],[23,54],[34,45],[52,26],[63,25],
+  [14,15],[12,13],[11,14],[13,16],[15,12],
+  [10,18],[21,7],[22,6],[23,5],[24,4],
+  [25,3],[26,2],[27,1],[20,9],[11,8],
+  [12,7],[13,6],[14,5],[15,4],[16,3],
+  [17,2],[18,1],[4,5],[3,6],[2,7],
 ]
 const SUBTRACTIONS:readonly [number,number][]=[
-  [29,14],[35,12],[55,21],[48,16],[68,25],
-  [37,13],[78,27],[79,17],[59,24],[58,12],
-  [39,26],[67,45],[59,28],[78,36],[67,14],
-  [79,18],[88,16],[55,20],[77,30],[68,40],
-  [33,11],[77,54],[79,45],[78,26],[88,25],
+  [29,14],[25,12],[28,16],[27,13],[26,15],
+  [29,7],[28,6],[27,5],[26,4],[25,3],
+  [24,2],[23,1],[22,2],[21,1],[20,10],
+  [19,8],[18,7],[17,6],[16,5],[15,4],
+  [14,3],[13,2],[12,1],[9,5],[8,6],
 ]
 
 export function isAllowedCalculation(left:number,right:number,operator:ArithmeticOperator):boolean{
-  if(!Number.isInteger(left)||!Number.isInteger(right)||left<0||right<0||left>99||right>99)return false
+  if(!Number.isInteger(left)||!Number.isInteger(right)||left<0||right<0||left>=30||right>=30)return false
   const unitsLeft=left%10,unitsRight=right%10
   const tensLeft=Math.floor(left/10),tensRight=Math.floor(right/10)
-  if(operator==='+')return unitsLeft+unitsRight<10&&tensLeft+tensRight<10
+  if(operator==='+')return unitsLeft+unitsRight<10&&left+right<30
   if(operator==='−')return unitsLeft>=unitsRight&&tensLeft>=tensRight
   return false
 }
@@ -32,7 +32,7 @@ export function isAllowedCalculation(left:number,right:number,operator:Arithmeti
 function makeQuestion(left:number,right:number,operator:ArithmeticOperator,index:number):ArithmeticQuestion{
   if(!isAllowedCalculation(left,right,operator))throw new Error('Ngân hàng chỉ nhận cộng không nhớ, trừ không mượn')
   const result=operator==='+'?left+right:left-right
-  const wrong=[result-1,result+1,result-10,result+10,result-2,result+2].filter(n=>n>=0&&n<=99&&n!==result).slice(0,3)
+  const wrong=[result-1,result+1,result-10,result+10,result-2,result+2].filter(n=>n>=0&&n<30&&n!==result).slice(0,3)
   const answer=LETTERS[index%4]!
   let wrongIndex=0
   const choices=Object.fromEntries(LETTERS.map(letter=>[letter,String(letter===answer?result:wrong[wrongIndex++])])) as Record<Choice,string>

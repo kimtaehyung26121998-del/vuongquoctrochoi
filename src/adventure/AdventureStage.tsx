@@ -2,6 +2,7 @@ import {useCallback,useEffect,useLayoutEffect,useMemo,useReducer,useRef,useState
 import type {Confirmed} from '../ai/usePoseCamera'
 import {useAnswerCamera} from '../ai/useAnswerCamera'
 import CameraDebug from '../ai/CameraDebug'
+import JourneyTrail from './JourneyTrail'
 import {POSE_NAMES} from '../ai/poseClassifier'
 import type {Choice,Question} from '../data/questions'
 import type {AdventureStageConfig} from './stages'
@@ -93,9 +94,9 @@ export default function AdventureStage({config:stageConfig,onExit,onComplete,que
     startMusic();play('ui/ui_start.wav')
     if(camera.status!=='running'&&camera.status!=='loading')void camera.start()
   }
-  return <><main hidden={boss&&finished} className={'forest-app rainbow-app '+(treasure?'treasure-app ':'')+(boss?'boss-app ':'')+(state.paused?'rainbow-paused ':'')+(skipMotion?'rainbow-skip':'')}>
+  return <><main data-stage={config.id} data-phase={state.phase} data-urgent={answering&&seconds<=5&&!waitingForRelease} hidden={boss&&finished} className={'forest-app rainbow-app '+(treasure?'treasure-app ':'')+(boss?'boss-app ':'')+(state.paused?'rainbow-paused ':'')+(skipMotion?'rainbow-skip':'')}>
     <audio ref={music} src={config.music} loop preload="none"/>
-    <header className="forest-header"><button className="forest-back" onClick={onExit}>← Bản đồ</button><div><span className="forest-eyebrow">VƯƠNG QUỐC TOÁN HỌC · MÀN {config.number}</span><h1>{config.title}</h1></div><div className="forest-score"><img src="/assets/ui/star.png" alt=""/>{score}<small>điểm</small></div><button className="forest-back" onClick={()=>setMuted(v=>!v)}>{muted?'Bật tiếng':'Tắt tiếng'}</button></header>
+    <header className="forest-header"><button className="forest-back" onClick={onExit}>← Bản đồ</button><div><span className="forest-eyebrow">VƯƠNG QUỐC TOÁN HỌC · MÀN {config.number}</span><h1>{config.title}</h1></div><JourneyTrail current={config.number-1}/><div className="forest-score"><img src="/assets/ui/star.png" alt=""/>{score}<small>điểm</small></div><button className="forest-back" onClick={()=>setMuted(v=>!v)}>{muted?'Bật tiếng':'Tắt tiếng'}</button></header>
     <div className="forest-layout"><section className="forest-main">
       {Scene&&<Scene state={state} config={config}/>}
       <section className="forest-question rainbow-question">

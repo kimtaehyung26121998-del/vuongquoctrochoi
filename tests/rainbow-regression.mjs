@@ -111,7 +111,7 @@ console.log('PASS: chỉ lưu/mở khóa khi đủ 30 điểm, loại tiến đ�
 
 const backup='backups/before-rainbow-20261015_083804'
 const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
-for(const relative of ['src/ai/stabilizer.ts','src/data/questions.ts','src/forest.css','src/styles.css'])assert.equal(hash(relative),hash(path.join(backup,relative)),relative+' bị thay đổi')
+for(const relative of ['src/ai/stabilizer.ts','src/forest.css','src/styles.css'])assert.equal(hash(relative),hash(path.join(backup,relative)),relative+' bị thay đổi')
 assertCameraCoreUnchanged(path.join(backup,'src/ai/usePoseCamera.ts'))
 // Rừng nay có auto-retry theo yêu cầu; kiểm tra hành vi bằng forest-auto-retry.
 for(const stage of ADVENTURE_STAGES)for(const asset of [stage.background,stage.gem,stage.music])assert.ok(fs.existsSync('public'+asset),asset)

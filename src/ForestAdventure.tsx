@@ -2,6 +2,8 @@ import {useCallback,useEffect,useLayoutEffect,useMemo,useReducer,useRef,useState
 import type {Confirmed} from './ai/usePoseCamera'
 import {useAnswerCamera} from './ai/useAnswerCamera'
 import CameraDebug from './ai/CameraDebug'
+import JourneyTrail from './adventure/JourneyTrail'
+import WorldAtmosphere from './adventure/WorldAtmosphere'
 import {WorkRobot,WorkDust} from './adventure/WorkEffects'
 import {POSE_NAMES} from './ai/poseClassifier'
 import type {Choice,Question} from './data/questions'
@@ -97,17 +99,19 @@ export default function ForestAdventure({onExit,onComplete,questionFactory}:{onE
   const retry=(cameraError=false)=>{clock.current={key:'',remaining:0};dispatch({type:cameraError?'RECOGNITION_RETRY':'RETRY'})}
   const finished=state.phase==='finish'
   const sceneStyle={'--from':`${12+Math.max(0,state.built-1)*23}%`,'--to':`${12+state.built*23}%`} as CSSProperties
-  return <main className={'forest-app '+(state.paused?'is-paused ':'')+(skipMotion?'skip-motion':'')}>
+  return <main data-stage="forest" data-phase={state.phase} className={'forest-app '+(state.paused?'is-paused ':'')+(skipMotion?'skip-motion':'')}>
     <audio ref={music} src="/audio/music/01_rung_phep_tinh.ogg" loop preload="none"/>
     <header className="forest-header">
       <button className="forest-back" onClick={onExit}>← Chọn chế độ</button>
       <div><span className="forest-eyebrow">VƯƠNG QUỐC TOÁN HỌC · MÀN 01</span><h1>Rừng phép tính</h1></div>
+      <JourneyTrail current={0}/>
       <div className="forest-score"><img src="/assets/ui/star.png" alt=""/>{state.score}<small>điểm</small></div>
       <button className="forest-back" onClick={()=>setMuted(v=>!v)} aria-label={muted?'Bật âm thanh':'Tắt âm thanh'}>{muted?'Bật tiếng':'Tắt tiếng'}</button>
     </header>
     <div className="forest-layout">
       <section className="forest-main">
         <div className="forest-scene" style={sceneStyle} aria-label={`Cây cầu đã xây ${state.built} trên 3 đoạn`}>
+          <WorldAtmosphere/>
           <div className="scene-caption"><b>CHIẾC CẦU PHÉP THUẬT</b><span>{state.built}/3 đoạn cầu</span></div>
           <div className="river"/>
           <div className="bank bank-left"/><div className="bank bank-right"/>

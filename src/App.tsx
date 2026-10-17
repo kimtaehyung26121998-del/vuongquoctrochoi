@@ -37,12 +37,12 @@ export default function App(){
   if(mode==='castle'&&isUnlocked(progress,'castle'))return <AdventureStage config={BOSS_STAGE} onExit={toMap} onComplete={finishBoss} questionFactory={drawBoss}/>
   if(mode==='legacy')return <><button className="return-menu" onClick={toMap}>← Bản đồ phiêu lưu</button><LegacyApp questionFactory={drawPractice}/></>
   return <main className="world-map">
-    <header className="map-header"><div><span>VƯƠNG QUỐC TOÁN HỌC</span><h1>Bản đồ phiêu lưu</h1><p>Từ khu rừng xanh đến lâu đài phép thuật. Mỗi hành trình mở ra một vùng đất mới.</p></div><img src="/assets/mascot/robot_guide.png" alt="Robot dẫn đường"/></header>
+    <header className="map-header"><div><span>VƯƠNG QUỐC TOÁN HỌC</span><h1>Bản đồ phiêu lưu</h1><p>Từ khu rừng xanh đến lâu đài phép thuật. Mỗi hành trình mở ra một vùng đất mới.</p><div className="map-collection" aria-label={`${Object.keys(progress.completed).length} / 4 pha lê`} >{ADVENTURE_STAGES.map(stage=><img key={stage.id} src={stage.gem} alt="" style={{opacity:progress.completed[stage.id]?1:.3}}/>)}<span>{Object.keys(progress.completed).length} / 4 pha lê</span></div></div><img src="/assets/mascot/robot_guide.png" alt="Robot dẫn đường"/></header>
     <ol className="world-route">{ADVENTURE_STAGES.map(stage=>{
       const unlocked=isUnlocked(progress,stage.id),result=progress.completed[stage.id]
       const status=!unlocked?'Đang khóa':result?'Đã hoàn thành':stage.ready?'Sẵn sàng khám phá':'Đã mở khóa · Đang chuẩn bị'
       return <li key={stage.id} className={(unlocked?'unlocked ':'locked ')+(result?'completed':'')}><button className="map-stage" disabled={!unlocked} onClick={()=>setMode(stage.id)} aria-label={`${stage.number}. ${stage.title}. ${status}`}>
-        <div className="map-stage-picture"><img src={stage.background} alt=""/><span className="map-number">{String(stage.number).padStart(2,'0')}</span><img className="map-gem" src={stage.gem} alt=""/></div>
+        <div className="map-stage-picture"><img src={`/assets/worlds/${['forest','sky','island','castle'][stage.number-1]}.svg`} alt=""/><span className="map-number">{String(stage.number).padStart(2,'0')}</span><img className="map-gem" src={stage.gem} alt=""/></div>
         <div className="map-stage-copy"><small>{status}</small><h2>{stage.title}</h2>{result?<p>{result.score} điểm · {result.stars}/3 sao <span aria-hidden="true">★</span></p>:<p>{unlocked?stage.id==='castle'?'Phá 3 lớp khiên phép thuật →':'3 phép toán đang chờ em →':'Hoàn thành màn trước để mở khóa'}</p>}</div>
       </button></li>
     })}</ol>

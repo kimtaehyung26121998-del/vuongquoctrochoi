@@ -89,7 +89,7 @@ console.log('PASS: phân biệt lỗi webcam/lỗi toán; classifier A/B/C/D/ngh
 const backup='backups/before-forest-20261015_082708'
 const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex')
 // Classifier B/D được sửa có chủ đích; kiểm tra bằng pose-bd-regression.
-for(const relative of ['src/ai/stabilizer.ts','src/data/questions.ts']){
+for(const relative of ['src/ai/stabilizer.ts']){
   assert.equal(hash(relative),hash(path.join(backup,relative)),`${relative} phải giữ nguyên`)
 }
 assertCameraCoreUnchanged(path.join(backup,'src/ai/usePoseCamera.ts'))

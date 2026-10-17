@@ -8,6 +8,7 @@ import {
 } from './treasureModel'
 import './treasureIsland.css'
 import {WorkRobot,WorkDust} from '../../adventure/WorkEffects'
+import WorldAtmosphere from '../../adventure/WorldAtmosphere'
 
 export interface TreasureIslandSceneProps {
   /** Current question index in this stage: 0, 1 or 2. */
@@ -61,6 +62,7 @@ function TreasureIslandSceneInner({
       data-treasure-round={round + 1}
       data-treasure-phase={phase}
     >
+      <WorldAtmosphere/>
       <div className="treasure-island__sky" aria-hidden="true" />
       <div className="treasure-island__sea" aria-hidden="true" />
       <div className="treasure-island__island" aria-hidden="true" />

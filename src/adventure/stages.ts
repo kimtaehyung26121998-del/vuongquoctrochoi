@@ -12,9 +12,9 @@ export const ADVENTURE_STAGES:AdventureStageConfig[]=STAGES.map((stage,index)=>(
   id:ids[index]!,title:stage.name,number:index+1,background:stage.asset,gem:stage.gem,
   music:`/audio/music/${music[index]}.ogg`,scene:ids[index]!,ready:true,
   questions:index===3?BOSS_QUESTIONS:QUESTIONS.filter(q=>q.stage===index),answerMs:20000,
-  intro:index===1?'Ba đoạn cầu vồng đang ngủ quên. Dùng phép toán để thiên thần hóa phép tạo cầu vồng qua những hòn đảo trên mây!':index===2?'Cùng Robot đào mảnh bản đồ, đào chìa khóa vàng rồi dùng chìa khóa mở rương pha lê. Mỗi phép toán đưa em đến gần kho báu hơn!':'',
+  intro:index===1?'Ba đoạn cầu vồng đang ngủ quên. Dùng phép toán để nối cầu vồng qua những hòn đảo trên mây!':index===2?'Cùng Robot đào mảnh bản đồ, đào chìa khóa vàng rồi dùng chìa khóa mở rương pha lê. Mỗi phép toán đưa em đến gần kho báu hơn!':'',
   goal:index===1?'ĐÁNH THỨC CẦU VỒNG':index===2?'KHÁM PHÁ KHO BÁU':'',
-  completeText:index===1?'Cầu vồng đã nối liền! Em và Robot đã tới Đảo Kho Báu nhờ phép thuật của thiên thần.':index===2?'Em và Robot đã tìm thấy pha lê vàng. Lâu Đài Boss là điểm đến tiếp theo!':'',
+  completeText:index===1?'Cầu vồng đã nối liền! Em và Robot đã tới Đảo Kho Báu.':index===2?'Em và Robot đã tìm thấy pha lê vàng. Lâu Đài Boss là điểm đến tiếp theo!':'',
 }))
 export const RAINBOW_STAGE=ADVENTURE_STAGES[1]!
 export const TREASURE_STAGE=ADVENTURE_STAGES[2]!

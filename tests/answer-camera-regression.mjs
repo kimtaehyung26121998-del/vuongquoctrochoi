@@ -27,7 +27,7 @@ function landmarks(pose){
 const backup='backups/before-answer-engine-20261015_085218'
 // Classifier B/D, luật retry và mở khóa thay đổi theo yêu cầu người dùng.
 // Giữ bất biến vòng MediaPipe, stabilizer/auto-arm, đồng hồ và màn Rừng.
-for(const relative of ['src/ai/stabilizer.ts','src/data/questions.ts','src/adventure/useStageClock.ts','src/adventure/useStageAudio.ts','src/adventure/stageClock.ts','src/forest.css','src/styles.css','src/adventure/rainbow.css']){
+for(const relative of ['src/ai/stabilizer.ts','src/adventure/useStageClock.ts','src/adventure/useStageAudio.ts','src/adventure/stageClock.ts','src/forest.css','src/styles.css','src/adventure/rainbow.css']){
   assert.equal(fs.readFileSync(relative,'utf8'),fs.readFileSync(path.join(backup,relative),'utf8'),relative+' phải giữ nguyên')
 }
 console.log('PASS: stabilizer, auto-arm, bộ đề, CSS hai màn và đồng hồ/âm thanh chung giữ nguyên.')

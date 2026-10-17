@@ -1,11 +1,11 @@
 {
   "files": {
     "src/forest.css": "98719064124c2db77ca1007097494aeca1d37de6253be557a6202449a3ad5a9c",
-    "src/ForestAdventure.tsx": "3b509e3912ae8a3d0b1a1b103e0cb51db86f4451d46084fc5d4d37190dc265a4",
+    "src/ForestAdventure.tsx": "135a8a763a01784bc1453320f538dfc0dc7a2a6fd63ba8868c0910b871c52842",
     "src/forestState.ts": "ec7c6a4b7159d305827c6ac07996b3b3ba82ed15fdca81990da419202159b523",
     "src/LegacyApp.tsx": "a2f58a70243c5646703d02db4cfa550e26b67435825e8b3ab1d26fce2c962ae5",
     "src/adventure/rainbow.css": "2820a8adfd01a086271e6740253774f115b218733fb14263c99d30fd968fb633",
-    "src/adventure/RainbowScene.tsx": "f883d88bccb5baca667b12c41ec2aaa8cfa220d21793322e892bcbd3b36302e7",
+    "src/adventure/RainbowScene.tsx": "71b9c2f81dace0dc7c42d285c9d6b714f769e834e450a27e74637e1dcb706be6",
     "src/ai/cameraDebug.css": "5ef258a80390236a499b1a8920eea75a412a4637e0d394886af3ce1a8b6739dc",
     "src/ai/CameraDebug.tsx": "b2d64f1a7d2e5c6b7b52b88c6f92d1f1c8dda6333f86419d4ae36e6fb22e2756",
     "src/ai/cameraDiagnostics.ts": "e67f8aba716284a6a6139ddcba3775cc47d41e2a3d08704b62286acd8ab11f96",
@@ -15,9 +15,9 @@
     "src/ai/useAnswerCamera.ts": "cbd25bdefc2c28e3b47b6bf4fd6f05193137adec51a4f27deca5b494b6938064",
     "src/ai/usePoseCamera.ts": "e3889331b877a1e40d655075837793263463ca1c33c729703ecb53d256e261bf",
     "src/ai/usePoseCamera.ts.bak_20261015_081153": "cb062564a1a2fc75a460605428176dc4d7f5e0e1d6930527099e7c566e611230",
-    "src/data/questions.ts": "889bdd128a880ad034645fdfce171aec3b68f3f13e668db90b990f025617ee57",
+    "src/data/questions.ts": "db866bd7b344fe8a9db94de0e5fd1fc7ae2b8c68ba03a25d4cb857cd460eed2c",
     "src/stages/treasure/treasureIsland.css": "21e4a233911456d095da11eace740e08129a411e7b681415814e8c0d2f4ba85a",
-    "src/stages/treasure/TreasureIslandScene.tsx": "e982ca3a69af6c2784da3cdbf57405692009b1e11591dc5d4f9c04af72f48b25",
+    "src/stages/treasure/TreasureIslandScene.tsx": "6ed409eecdd8f1140f00fc02f527442bbb22e5a5eff2a5f354862be832b0c389",
     "src/stages/treasure/TreasureIslandStage.tsx": "51704391c5a807690b24fd1d243d45713be0e7da9edabaf74509cb54b3ae4383",
     "src/stages/treasure/treasureModel.ts": "771c80d97fb610f0b78ed9abb89a4c6ac5b9e7ece6b10bb632c3e98889d10030"
   },
